@@ -9,6 +9,7 @@ $(document).ready(function() {
       switch (event.which) {
         case 1:
         if ($(this).hasClass("has-bomb")){
+          $(".flag").removeClass("flag");
           $(".has-bomb").addClass("bomb-clicked");
           stateOfGame = false;
           console.log(stateOfGame);
@@ -20,8 +21,8 @@ $(document).ready(function() {
         case 3:
         if ($(this).hasClass("flag")) {
           $(this).removeClass("flag")
-        } else if (!$(this).hasClass("clicked-on")){
-          $(this).addClass("flag");
+        } else if ($(this).hasClass("clicked-on")){
+          break;
         } else {
           $(this).addClass("flag");
         }
