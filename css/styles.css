@@ -3,3 +3,11 @@
   height: 100px;
   width: 100px;
 }
+
+.clicked-on {
+  background-color: grey;
+}
+
+.bomb-clicked {
+  background-color: red;
+}
