@@ -1,8 +1,9 @@
 $(document).ready(function() {
   $(".cell").click(function() {
-    $(this).addClass("clicked-on");
-    if ($(this).hasClass("clicked-on, has-bomb")){
+    if ($(this).hasClass("has-bomb")){
       $(this).addClass("bomb-clicked");
+    } else {
+      $(this).addClass("clicked-on");
     }
   })
 })
