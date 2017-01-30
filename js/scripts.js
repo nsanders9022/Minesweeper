@@ -1,6 +1,9 @@
 
 $(document).ready(function() {
   var stateOfGame = true;
+  $(".minesweeper-game").contextmenu(function() {
+    return false;
+  });
   $(".cell").mousedown(function(event) {
     if (stateOfGame === true) {
       switch (event.which) {
@@ -15,16 +18,15 @@ $(document).ready(function() {
         break;
 
         case 3:
-        if (!$(this).hasClass("clicked-on")){
-          $(this).addClass("flag");
-        }
         if ($(this).hasClass("flag")) {
           $(this).removeClass("flag")
+        } else if (!$(this).hasClass("clicked-on")){
+          $(this).addClass("flag");
         } else {
           $(this).addClass("flag");
         }
       }
     }
-  });
 
-})
+  });
+});
