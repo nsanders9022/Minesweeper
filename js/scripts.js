@@ -3,7 +3,7 @@ $(document).ready(function() {
     switch (event.which) {
       case 1:
         if ($(this).hasClass("has-bomb")){
-          $(this).addClass("bomb-clicked");
+          $(".has-bomb").addClass("bomb-clicked");
         } else {
           $(this).addClass("clicked-on");
         }
