@@ -1,4 +1,7 @@
 $(document).ready(function() {
+  $(".minesweeper-game").contextmenu(function() {
+    return false;
+  })
   $(".cell").mousedown(function(event) {
     switch (event.which) {
       case 1:
