@@ -11,3 +11,7 @@
 .bomb-clicked {
   background-color: red;
 }
+
+.flag {
+  background-color: orange;
+}
