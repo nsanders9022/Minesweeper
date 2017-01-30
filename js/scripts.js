@@ -9,7 +9,11 @@ $(document).ready(function() {
         }
         break;
       case 3:
-        $(this).addClass("flag");
+        if ($(this).hasClass("flag")) {
+          $(this).removeClass("flag")
+        } else {
+          $(this).addClass("flag");
+        }
     }
   })
 })
