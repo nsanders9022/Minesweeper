@@ -9,7 +9,6 @@ $(document).ready(function() {
       }
       break;
       case 3:
-      <<<<<<< HEAD
       if (!$(this).hasClass("clicked-on")){
         $(this).addClass("flag");
       } else if ($(this).hasClass("flag")) {
@@ -17,7 +16,6 @@ $(document).ready(function() {
       } else {
         $(this).addClass("flag");
       }
-      >>>>>>> 47a8369b59f8aec09ba8c3e60ba68d22e03615ee
     }
   })
 })
