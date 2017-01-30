@@ -9,10 +9,10 @@ $(document).ready(function() {
       }
       break;
       case 3:
-      if (!$(this).hasClass("clicked-on")){
-        $(this).addClass("flag");
-      } else if ($(this).hasClass("flag")) {
+      if ($(this).hasClass("flag")) {
         $(this).removeClass("flag")
+      } else if (!$(this).hasClass("clicked-on")){
+        $(this).addClass("flag");
       } else {
         $(this).addClass("flag");
       }
