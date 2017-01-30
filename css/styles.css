@@ -5,9 +5,16 @@
 }
 
 .clicked-on {
-  background-color: grey;
+  background-color: #ADD8E6;
 }
 
 .bomb-clicked {
-  background-color: red;
+  background-image: url(../images/boom-bomb.png);
+  background-repeat: no-repeat;
+}
+
+.flag {
+  background-image: url(../images/flag.png);
+  background-repeat: no-repeat;
+  background-size: cover;
 }
