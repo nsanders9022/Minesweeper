@@ -9,7 +9,10 @@ $(document).ready(function() {
         }
         break;
       case 3:
+      if (!$(this).hasClass("clicked-on")){
         $(this).addClass("flag");
+      }
+
     }
   })
 })
