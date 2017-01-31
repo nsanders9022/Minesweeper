@@ -24,7 +24,6 @@ function cellIsBomb(obj) {
 var bomb = cellArray.filter(cellIsBomb);
 var base = Math.sqrt(cellArray.length);
 
-
 var bombCells = function() {
   var bId = [];
   for (k = 0; k < cellArray.length; k++) {
@@ -66,31 +65,38 @@ var surroundingCells = function() {
   return array;
 }
 
+//User Interface Logic
 $(document).ready(function() {
   var array = surroundingCells();
   console.log(array);
-  surroundingCells();
+  //Adds "has-bomb" class to cells
   for (i = 0; i < cellArray.length; i++) {
     if (cellArray[i].isBomb) {
       $("#" + cellArray[i].cellId).addClass("has-bomb");
     }
   }
   var stateOfGame = true;
+  //Removes right-click context menu on game
   $(".minesweeper-game").contextmenu(function() {
     return false;
   });
+  //click listener
   $(".cell").mousedown(function(event) {
     if (stateOfGame === true) {
       switch (event.which) {
+
+        //On left click
         case 1:
-        //Alt function
         idValue = $(this).attr("id");
+        //If you left-click on a bomb, they all show up and game over
         if ($(this).hasClass("has-bomb")){
           $(".flag").removeClass("flag");
           $(".has-bomb").addClass("bomb-clicked");
           stateOfGame = false;
+          //If you left-click on a flag, nothing happens
         } else if ($(this).hasClass("flag")) {
           break;
+          //If you click on an empty space, it gains class "clicked-on"
         } else {
           $(this).addClass("clicked-on");
           //shows the adjacency value when a cell is clicked on
@@ -100,7 +106,9 @@ $(document).ready(function() {
         }
         break;
 
+        //On Right click
         case 3:
+        //Flag toggling
         if ($(this).hasClass("flag")) {
           $(this).removeClass("flag")
         } else if ($(this).hasClass("clicked-on")){
@@ -110,6 +118,5 @@ $(document).ready(function() {
         }
       }
     }
-
   });
 });
