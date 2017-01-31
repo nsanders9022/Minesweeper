@@ -64,6 +64,23 @@ var bombCells = function() {
 }
 var bId = bombCells();
 
+
+function Adjacency(baseValue, loopOperator) {
+  this.baseValue = baseValue,
+  this.loopOperator = loopOperator
+}
+
+var nwAdj = new Adjacency((base + 1), "minus");
+var nAdj = new Adjacency(base, "minus");
+var neAdj = new Adjacency((base - 1), "minus");
+var wAdj = new Adjacency((-1), "minus");
+var eAdj = new Adjacency((+ 1), "plus");
+var swAdj = new Adjacency((base - 1), "plus");
+var sAdj = new Adjacency(base, "plus");
+var seAdj = new Adjacency((base + 1), "plus");
+
+var adjacencyArray = [nwAdj, nAdj, neAdj, wAdj, eAdj, swAdj, sAdj, seAdj];
+
 var touch = function() {
   var allCells = [];
   for (l = 0; l < bId.length; l++) {
@@ -85,6 +102,7 @@ var touch = function() {
     allCells.push(s);
     allCells.push(se);
     console.log(allCells);
+    //switch statement?
     if (x < base) {
       allCells.splice(allCells.indexOf(nw), 1);
       allCells.splice(allCells.indexOf(n), 1);
@@ -133,6 +151,8 @@ var surroundingCells = function() {
   return array;
 }
 
+
+
 //User Interface Logic
 $(document).ready(function() {
   console.log(touchCells);
@@ -151,15 +171,38 @@ $(document).ready(function() {
   $(".minesweeper-game").contextmenu(function() {
     return false;
   });
-
+  /////////////////////////////////////////////////////////////////////////////////////
   var clickExpander = function(element){
-    for (i = parseInt(element.attr("id")); i < cellArray.length; i += base) {
-      if (cellArray[i].adjValue === 0) {
-        $("#" + i).addClass("clicked-on");
+    debugger;
+    for (j = 0; j < adjacencyArray.length; j++) {
+      if (adjacencyArray[j].loopOperator === "plus") {
+        for (i = parseInt(element.attr("id")); i < cellArray.length; i += adjacencyArray[j].baseValue) {
+          if (cellArray[i].adjValue === 0) {
+            if ((i >= (base * (base - 1))) || (i % base === base - 1)){
+              break;
+            } else {
+              $("#" + i).addClass("clicked-on");
+            }
+          } else {
+            $("#" + i).addClass("clicked-on");
+            $("#" + i).text(cellArray[i].adjValue);
+            break;
+          }
+        }
       } else {
-        $("#" + i).addClass("clicked-on");
-        $("#" + i).text(cellArray[i].adjValue);
-        break;
+        for (i = parseInt(element.attr("id")); i < cellArray.length; i -= adjacencyArray[j].baseValue) {
+          if (cellArray[i].adjValue === 0) {
+            if ((i < base) || (i % base === 0)){
+              break;
+            } else {
+              $("#" + i).addClass("clicked-on");
+            }
+          } else {
+            $("#" + i).addClass("clicked-on");
+            $("#" + i).text(cellArray[i].adjValue);
+            break;
+          }
+        }
       }
     }
   }
@@ -182,12 +225,14 @@ $(document).ready(function() {
           //If you click on an empty space, it gains class "clicked-on"
         } else {
           //Down
-          clickExpander($(this));
+          if (cellArray[idValue].adjValue > 0) {
+            $(this).addClass("clicked-on");
+            $(this).text(cellArray[idValue].adjValue);
+          } else {
+            clickExpander($(this));
+          }
           // $(this).addClass("clicked-on");
           //shows the adjacency value when a cell is clicked on
-          if (cellArray[idValue].adjValue > 0) {
-            $(this).text(cellArray[idValue].adjValue);
-          }
         }
         break;
 
