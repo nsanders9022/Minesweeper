@@ -42,6 +42,11 @@ var surroundingCells = function() {
 
 $(document).ready(function() {
   surroundingCells();
+  for (i = 0; i < cellArray.length; i++) {
+    if (cellArray[i].isBomb) {
+      $("#" + cellArray[i].cellId).addClass("has-bomb");
+    }
+  }
   var stateOfGame = true;
   $(".minesweeper-game").contextmenu(function() {
     return false;
