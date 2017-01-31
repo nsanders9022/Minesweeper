@@ -151,6 +151,18 @@ $(document).ready(function() {
   $(".minesweeper-game").contextmenu(function() {
     return false;
   });
+
+  var clickExpander = function(element){
+    for (i = parseInt(element.attr("id")); i < cellArray.length; i += base) {
+      if (cellArray[i].adjValue === 0) {
+        $("#" + i).addClass("clicked-on");
+      } else {
+        $("#" + i).addClass("clicked-on");
+        $("#" + i).text(cellArray[i].adjValue);
+        break;
+      }
+    }
+  }
   //click listener
   $(".cell").mousedown(function(event) {
     if (stateOfGame === true) {
@@ -170,15 +182,7 @@ $(document).ready(function() {
           //If you click on an empty space, it gains class "clicked-on"
         } else {
           //Down
-          for (i = parseInt($(this).attr("id")); i < cellArray.length; i += base) {
-            if (cellArray[i].adjValue === 0) {
-              $("#" + i).addClass("clicked-on");
-            } else {
-              $("#" + i).addClass("clicked-on");
-              $("#" + i).text(cellArray[i].adjValue);
-              break;
-            }
-          }
+          clickExpander($(this));
           // $(this).addClass("clicked-on");
           //shows the adjacency value when a cell is clicked on
           if (cellArray[idValue].adjValue > 0) {
