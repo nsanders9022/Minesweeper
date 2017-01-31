@@ -41,6 +41,7 @@ var surroundingCells = function() {
 }
 
 $(document).ready(function() {
+  surroundingCells();
   var stateOfGame = true;
   $(".minesweeper-game").contextmenu(function() {
     return false;
@@ -55,6 +56,8 @@ $(document).ready(function() {
           $(".flag").removeClass("flag");
           $(".has-bomb").addClass("bomb-clicked");
           stateOfGame = false;
+        } else if ($(this).hasClass("flag")) {
+          break;
         } else {
           $(this).addClass("clicked-on");
           //shows the adjacency value when a cell is clicked on
