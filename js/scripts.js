@@ -9,11 +9,7 @@ function Cell(bomb, id) {
 
 var a0 = new Cell(false, 0);
 var a1 = new Cell(false, 1);
-<<<<<<< HEAD
-var a2 = new Cell(true, 2);
-=======
 var a2 = new Cell(false, 2);
->>>>>>> 2e97098fb01d569e4d8fd81d6e097c2fb354cf64
 var b0 = new Cell(false, 3);
 var b1 = new Cell(true, 4);
 var b2 = new Cell(false, 5);
