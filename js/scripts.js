@@ -11,7 +11,7 @@ var cell0 = new Cell(false, 0);
 var cell1 = new Cell(false, 1);
 var cell2 = new Cell(false, 2);
 var cell3 = new Cell(false, 3);
-var cell4 = new Cell(true, 4);
+var cell4 = new Cell(false, 4);
 var cell5 = new Cell(false, 5);
 var cell6 = new Cell(false, 6);
 var cell7 = new Cell(false, 7);
@@ -20,7 +20,7 @@ var cell9 = new Cell(false, 9);
 var cell10 = new Cell(false, 10);
 var cell11 = new Cell(false, 11);
 var cell12 = new Cell(false, 12);
-var cell13 = new Cell(true, 13);
+var cell13 = new Cell(false, 13);
 var cell14 = new Cell(false, 14);
 var cell15 = new Cell(false, 15);
 var cell16 = new Cell(false, 16);
@@ -46,21 +46,36 @@ var cell35 = new Cell(false, 35);
 
 var cellArray = [cell0, cell1, cell2, cell3, cell4, cell5, cell6, cell7, cell8, cell9, cell10, cell11, cell12, cell13, cell14, cell15, cell16, cell17, cell18, cell19, cell20, cell21, cell22, cell23, cell24, cell25, cell26, cell27, cell28, cell29, cell30, cell31, cell32, cell33, cell34, cell35];
 
-
 function cellIsBomb(obj) {
   return obj.isBomb == true;
 }
 var bomb = cellArray.filter(cellIsBomb);
 var base = Math.sqrt(cellArray.length);
+var numberOfBombs = Math.round(cellArray.length / 3);
 
-var bombCells = function() {
-  var bId = [];
-  for (k = 0; k < cellArray.length; k++) {
-    if(cellArray[k].isBomb === true) {
-      bId.push(cellArray[k].cellId);
+function getRandomBombs() {
+  var randomNumbers = [];
+  for(m = 0; randomNumbers.length < numberOfBombs; m++) {
+    var oneRandomBomb = Math.floor(Math.random() * cellArray.length);
+    if(randomNumbers.indexOf(oneRandomBomb) == -1) {
+      randomNumbers.push(oneRandomBomb);
     }
   }
-  return bId;
+  return randomNumbers;
+}
+var randomBombs = getRandomBombs();
+console.log(randomBombs);
+
+var bombCells = function() {
+  for (k = 0; k < randomBombs.length; k++) {
+    for (n = 0; n < cellArray.length; n++) {
+      if(cellArray[n].cellId === randomBombs[k]) {
+        cellArray[n].isBomb = true;
+        console.log(cellArray[n]);
+      }
+    }
+  }
+  return randomBombs;
 }
 var bId = bombCells();
 
@@ -84,12 +99,10 @@ var touch = function() {
     allCells.push(sw);
     allCells.push(s);
     allCells.push(se);
-    console.log(allCells);
     if (x < base) {
       allCells.splice(allCells.indexOf(nw), 1);
       allCells.splice(allCells.indexOf(n), 1);
       allCells.splice(allCells.indexOf(ne), 1);
-      console.log(allCells);
     }
     if (x >= base * (base - 1)) {
       allCells.splice(allCells.indexOf(sw), 1);
@@ -104,7 +117,6 @@ var touch = function() {
       if (allCells.indexOf(se) !== -1) {
         allCells.splice(allCells.indexOf(se), 1);
       }
-      console.log(allCells);
     }
     if (x % base === 0) {
       if (allCells.indexOf(nw) !== -1) {
@@ -135,10 +147,7 @@ var surroundingCells = function() {
 
 //User Interface Logic
 $(document).ready(function() {
-  console.log(touchCells);
   var array = surroundingCells();
-  console.log(array);
-
   //Adds "has-bomb" class to cells
 
   for (i = 0; i < cellArray.length; i++) {
