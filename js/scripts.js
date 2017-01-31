@@ -7,23 +7,51 @@ function Cell(bomb, id) {
   this.bombsTouching = 1;
 }
 
-var a0 = new Cell(true, 0);
-var a1 = new Cell(false, 1);
-var a2 = new Cell(true, 2);
-var b0 = new Cell(false, 3);
-var b1 = new Cell(false, 4);
-var b2 = new Cell(false, 5);
-var c0 = new Cell(true, 6);
-var c1 = new Cell(false, 7);
-var c2 = new Cell(true, 8);
-var cellArray = [a0, a1, a2, b0, b1, b2, c0, c1, c2];
+var cell0 = new Cell(false, 0);
+var cell1 = new Cell(false, 1);
+var cell2 = new Cell(false, 2);
+var cell3 = new Cell(false, 3);
+var cell4 = new Cell(true, 4);
+var cell5 = new Cell(false, 5);
+var cell6 = new Cell(false, 6);
+var cell7 = new Cell(false, 7);
+var cell8 = new Cell(false, 8);
+var cell9 = new Cell(false, 9);
+var cell10 = new Cell(false, 10);
+var cell11 = new Cell(false, 11);
+var cell12 = new Cell(false, 12);
+var cell13 = new Cell(true, 13);
+var cell14 = new Cell(false, 14);
+var cell15 = new Cell(false, 15);
+var cell16 = new Cell(false, 16);
+var cell17 = new Cell(false, 17);
+var cell18 = new Cell(false, 18);
+var cell19 = new Cell(false, 19);
+var cell20 = new Cell(false, 20);
+var cell21 = new Cell(false, 21);
+var cell22 = new Cell(false, 22);
+var cell23 = new Cell(false, 23);
+var cell24 = new Cell(false, 24);
+var cell25 = new Cell(false, 25);
+var cell26 = new Cell(false, 26);
+var cell27 = new Cell(false, 27);
+var cell28 = new Cell(false, 28);
+var cell29 = new Cell(false, 29);
+var cell30 = new Cell(false, 30);
+var cell31 = new Cell(false, 31);
+var cell32 = new Cell(false, 32);
+var cell33 = new Cell(false, 33);
+var cell34 = new Cell(false, 34);
+var cell35 = new Cell(false, 35);
+
+var cellArray = [cell0, cell1, cell2, cell3, cell4, cell5, cell6, cell7, cell8, cell9, cell10, cell11, cell12, cell13, cell14, cell15, cell16, cell17, cell18, cell19, cell20, cell21, cell22, cell23, cell24, cell25, cell26, cell27, cell28, cell29, cell30, cell31, cell32, cell33, cell34, cell35];
+
 
 function cellIsBomb(obj) {
   return obj.isBomb == true;
 }
 var bomb = cellArray.filter(cellIsBomb);
 var base = Math.sqrt(cellArray.length);
-
 
 var bombCells = function() {
   var bId = [];
@@ -105,33 +133,53 @@ var surroundingCells = function() {
   return array;
 }
 
+//User Interface Logic
 $(document).ready(function() {
   console.log(touchCells);
   var array = surroundingCells();
   console.log(array);
+
+  //Adds "has-bomb" class to cells
+
   for (i = 0; i < cellArray.length; i++) {
     if (cellArray[i].isBomb) {
       $("#" + cellArray[i].cellId).addClass("has-bomb");
     }
   }
   var stateOfGame = true;
+  //Removes right-click context menu on game
   $(".minesweeper-game").contextmenu(function() {
     return false;
   });
+  //click listener
   $(".cell").mousedown(function(event) {
     if (stateOfGame === true) {
       switch (event.which) {
+
+        //On left click
         case 1:
-        //Alt function
         idValue = $(this).attr("id");
+        //If you left-click on a bomb, they all show up and game over
         if ($(this).hasClass("has-bomb")){
           $(".flag").removeClass("flag");
           $(".has-bomb").addClass("bomb-clicked");
           stateOfGame = false;
+          //If you left-click on a flag, nothing happens
         } else if ($(this).hasClass("flag")) {
           break;
+          //If you click on an empty space, it gains class "clicked-on"
         } else {
-          $(this).addClass("clicked-on");
+          //Down
+          for (i = parseInt($(this).attr("id")); i < cellArray.length; i += base) {
+            if (cellArray[i].adjValue === 0) {
+              $("#" + i).addClass("clicked-on");
+            } else {
+              $("#" + i).addClass("clicked-on");
+              $("#" + i).text(cellArray[i].adjValue);
+              break;
+            }
+          }
+          // $(this).addClass("clicked-on");
           //shows the adjacency value when a cell is clicked on
           if (cellArray[idValue].adjValue > 0) {
             $(this).text(cellArray[idValue].adjValue);
@@ -139,7 +187,9 @@ $(document).ready(function() {
         }
         break;
 
+        //On Right click
         case 3:
+        //Flag toggling
         if ($(this).hasClass("flag")) {
           $(this).removeClass("flag")
         } else if ($(this).hasClass("clicked-on")){
@@ -149,6 +199,5 @@ $(document).ready(function() {
         }
       }
     }
-
   });
 });
