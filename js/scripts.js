@@ -41,6 +41,12 @@ var surroundingCells = function() {
 }
 
 $(document).ready(function() {
+  surroundingCells();
+  for (i = 0; i < cellArray.length; i++) {
+    if (cellArray[i].isBomb) {
+      $("#" + cellArray[i].cellId).addClass("has-bomb");
+    }
+  }
   var stateOfGame = true;
   $(".minesweeper-game").contextmenu(function() {
     return false;
@@ -55,6 +61,8 @@ $(document).ready(function() {
           $(".flag").removeClass("flag");
           $(".has-bomb").addClass("bomb-clicked");
           stateOfGame = false;
+        } else if ($(this).hasClass("flag")) {
+          break;
         } else {
           $(this).addClass("clicked-on");
           //shows the adjacency value when a cell is clicked on
