@@ -1,3 +1,5 @@
+var idValue;
+
 function Cell(bomb, id) {
   this.isBomb = bomb;
   this.adjValue = 0;
@@ -5,9 +7,15 @@ function Cell(bomb, id) {
   this.bombsTouching = 1;
 }
 
+<<<<<<< HEAD
 var a0 = new Cell(false, 0);
 var a1 = new Cell(false, 1);
 var a2 = new Cell(false, 2);
+=======
+var a0 = new Cell(false, "0");
+var a1 = new Cell(false, "1");
+var a2 = new Cell(true, "2");
+>>>>>>> master
 var b0 = new Cell(false, 3);
 var b1 = new Cell(true, 4);
 var b2 = new Cell(false, 5);
@@ -16,11 +24,15 @@ var c1 = new Cell(false, 7);
 var c2 = new Cell(false, 8);
 var cellArray = [a0, a1, a2, b0, b1, b2, c0, c1, c2];
 
+<<<<<<< HEAD
 function cellIsBomb(obj) {
   return obj.isBomb == true;
 }
 var bomb = cellArray.filter(cellIsBomb);
 var bombCellId = bomb[0].cellId;
+=======
+var newArray = [a0, a1, a2, b0, b1, b2, c0, c1, c2];
+
 
 function west(obj) {
   var surroundingCells= [];
@@ -54,7 +66,10 @@ var westCell = cellArray.filter(west);
 
 
 $(document).ready(function() {
+<<<<<<< HEAD
   console.log(westCell);
+=======
+>>>>>>> master
   var stateOfGame = true;
   $(".minesweeper-game").contextmenu(function() {
     return false;
@@ -63,8 +78,13 @@ $(document).ready(function() {
     if (stateOfGame === true) {
       switch (event.which) {
         case 1:
-        var idValue = $(this).attr("id");
-        console.log(idValue)
+        idValue = $(this).attr("id");
+        var adjacency = newArray.filter(function(obj){
+          return obj.cellId == idValue;
+        });
+        console.log(touching);
+        debugger;
+        // console.log(idValue)
         if ($(this).hasClass("has-bomb")){
           $(".flag").removeClass("flag");
           $(".has-bomb").addClass("bomb-clicked");
