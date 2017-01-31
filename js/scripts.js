@@ -98,7 +98,17 @@ $(document).ready(function() {
           break;
           //If you click on an empty space, it gains class "clicked-on"
         } else {
-          $(this).addClass("clicked-on");
+          //Down
+          for (i = $(this).attr("id"); i < cellArray.length; i += base) {
+            if (cellArray[i].adjValue === 0) {
+              $("#" + i).addClass("clicked-on");
+            } else {
+              $("#" + i).addClass("clicked-on");
+              $("#" + i).text(cellArray[i].adjValue);
+              break;
+            }
+          }
+          // $(this).addClass("clicked-on");
           //shows the adjacency value when a cell is clicked on
           if (cellArray[idValue].adjValue > 0) {
             $(this).text(cellArray[idValue].adjValue);
