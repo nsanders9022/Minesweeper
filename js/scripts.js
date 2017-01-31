@@ -22,10 +22,36 @@ function cellIsBomb(obj) {
   return obj.isBomb == true;
 }
 var bomb = cellArray.filter(cellIsBomb);
-var bId = bomb[0].cellId;
 var base = Math.sqrt(cellArray.length);
-var touchCells = [(bId - base), (bId + base), (bId +1), (bId -1), (bId - (base + 1)), (bId + (base+1)), (bId - (base-1)), (bId + (base-1))];
 
+
+var bombCells = function() {
+  var bId = [];
+  for (k = 0; k < cellArray.length; k++) {
+    if(cellArray[k].isBomb === true) {
+      bId.push(cellArray[k].cellId);
+    }
+  }
+  return bId;
+}
+var bId = bombCells();
+
+var touch = function() {
+  var allCells = [];
+  for (l = 0; l < bId.length; l++) {
+    var x = bId[l];
+    allCells.push(bId[l] - base);
+    allCells.push(bId[l] + base);
+    allCells.push(bId[l] +1);
+    allCells.push(bId[l] -1);
+    allCells.push(bId[l] - (base + 1));
+    allCells.push(bId[l] + (base+1));
+    allCells.push(bId[l] - (base-1));
+    allCells.push(bId[l] + (base-1));
+    }
+  return allCells;
+}
+var touchCells = touch();
 
 var surroundingCells = function() {
   var array = [];
@@ -41,6 +67,8 @@ var surroundingCells = function() {
 }
 
 $(document).ready(function() {
+  var array = surroundingCells();
+  console.log(array);
   var stateOfGame = true;
   $(".minesweeper-game").contextmenu(function() {
     return false;
