@@ -61,33 +61,40 @@ var westCell = cellArray.filter(west);
 // var touching = cellArray.filter(function(obj){
 //   return obj.cellId == 4;
 // });
-
+var westAdder = function() {
+  for (i = 0; i <cellArray.length; i++) {
+    if (cellArray[i].isBomb === true) {
+      cellArray[i-1].adjValue += 1;
+    }
+  }
+}
 
 
 $(document).ready(function() {
   console.log(westCell);
   var stateOfGame = true;
-  var adjacency;
+  // var adjacency;
   $(".minesweeper-game").contextmenu(function() {
     return false;
   });
+  // cellArray.forEach(function (i) {
+  //   debugger;
+  //   westAdder(cellArray.indexOf(i));
+  // })
+  westAdder()
   $(".cell").mousedown(function(event) {
     if (stateOfGame === true) {
       switch (event.which) {
         case 1:
         //Alt function
         idValue = $(this).attr("id");
-        console.log(newArray[idValue]);
+        console.log(cellArray[idValue]);
         //Gets object based on ID of div clicked on
         // idValue = $(this).attr("id");
         // adjacency = newArray.filter(function(obj){
         //   return obj.cellId == idValue;
         // });
         // debugger;
-        var westFinder = function(object){
-          return newArray.indexOf(object);
-        }
-        console.log(westFinder(adjacency));
         if ($(this).hasClass("has-bomb")){
           $(".flag").removeClass("flag");
           $(".has-bomb").addClass("bomb-clicked");
