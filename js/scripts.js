@@ -127,7 +127,7 @@ $(document).ready(function() {
           //If you click on an empty space, it gains class "clicked-on"
         } else {
           //Down
-          for (i = $(this).attr("id"); i < cellArray.length; i += base) {
+          for (i = parseInt($(this).attr("id")); i < cellArray.length; i += base) {
             if (cellArray[i].adjValue === 0) {
               $("#" + i).addClass("clicked-on");
             } else {
