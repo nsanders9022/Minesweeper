@@ -4,19 +4,25 @@ function Cell(bomb, id) {
   this.isBomb = bomb;
   this.adjValue = 0;
   this.cellId = id;
+  this.bombsTouching = 1;
 }
 
-var a0 = new Cell(false, "0");
-var a1 = new Cell(false, "1");
-var a2 = new Cell(true, "2");
-var b0 = new Cell(false, "3");
-var b1 = new Cell(true, "4");
-var b2 = new Cell(false, "5");
-var c0 = new Cell(false, "6");
-var c1 = new Cell(false, "7");
-var c2 = new Cell(false, "8");
+var a0 = new Cell(false, 0);
+var a1 = new Cell(false, 1);
+var a2 = new Cell(true, 2);
+var b0 = new Cell(false, 3);
+var b1 = new Cell(true, 4);
+var b2 = new Cell(false, 5);
+var c0 = new Cell(false, 6);
+var c1 = new Cell(false, 7);
+var c2 = new Cell(false, 8);
+var cellArray = [a0, a1, a2, b0, b1, b2, c0, c1, c2];
 
-var newArray = [a0, a1, a2, b0, b1, b2, c0, c1, c2];
+function cellIsBomb(obj) {
+  return obj.isBomb == true;
+}
+var bomb = cellArray.filter(cellIsBomb);
+var bombCellId = bomb[0].cellId;
 
 var a = [a0, a1, a2];
 var b = [b0, b1, b2];
@@ -26,14 +32,40 @@ var width = a.length;
 
 // Cell.prototype.getId = function() {
 //   var idCell = this.cellId;
-//
-// }
 
-// Cell.prototype.whereDaBombs = function() {
-//   return this.adjValue;
-// };
+function west(obj) {
+  var surroundingCells= [];
+  surroundingCells.push(obj.cellId == bombCellId-1);
+  return surroundingCells;
+}
+var westCell = cellArray.filter(west);
+//
+// function west(obj) {
+//   return obj.cellId == bombCellId-1;
+// }
+// var westCell = cellArray.filter(west);
+//
+// function west(obj) {
+//   return obj.cellId == bombCellId-1;
+// }
+// var westCell = cellArray.filter(west);
+// westCell[0].adjValue += 1;
+
+//
+// var west = cellArray.filter(function(obj){
+//   return obj.cellId == bombCellId-1;
+//   return obj.cellId == bombCellId+1;
+// });
+
+
+// var touching = cellArray.filter(function(obj){
+//   return obj.cellId == 4;
+// });
+
+
 
 $(document).ready(function() {
+  console.log(westCell);
   var stateOfGame = true;
   var adjacency;
   $(".minesweeper-game").contextmenu(function() {
@@ -45,7 +77,7 @@ $(document).ready(function() {
         case 1:
         //Alt function
         idValue = $(this).attr("id");
-        console.log(newArray[parseInt(idValue)]);
+        console.log(newArray[idValue]);
         //Gets object based on ID of div clicked on
         // idValue = $(this).attr("id");
         // adjacency = newArray.filter(function(obj){
