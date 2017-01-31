@@ -30,58 +30,19 @@ var c = [c0, c1, c2];
 var gameRows = [a, b, c];
 var width = a.length;
 
-// Cell.prototype.getId = function() {
-//   var idCell = this.cellId;
-
 function west(obj) {
   var surroundingCells= [];
   surroundingCells.push(obj.cellId == bombCellId-1);
   return surroundingCells;
 }
 var westCell = cellArray.filter(west);
-//
-// function west(obj) {
-//   return obj.cellId == bombCellId-1;
-// }
-// var westCell = cellArray.filter(west);
-//
-// function west(obj) {
-//   return obj.cellId == bombCellId-1;
-// }
-// var westCell = cellArray.filter(west);
-// westCell[0].adjValue += 1;
-
-//
-// var west = cellArray.filter(function(obj){
-//   return obj.cellId == bombCellId-1;
-//   return obj.cellId == bombCellId+1;
-// });
-
-
-// var touching = cellArray.filter(function(obj){
-//   return obj.cellId == 4;
-// });
-var westAdder = function() {
-  for (i = 0; i <cellArray.length; i++) {
-    if (cellArray[i].isBomb === true) {
-      cellArray[i-1].adjValue += 1;
-    }
-  }
-}
-
 
 $(document).ready(function() {
   console.log(westCell);
   var stateOfGame = true;
-  // var adjacency;
   $(".minesweeper-game").contextmenu(function() {
     return false;
   });
-  // cellArray.forEach(function (i) {
-  //   debugger;
-  //   westAdder(cellArray.indexOf(i));
-  // })
-  westAdder()
   $(".cell").mousedown(function(event) {
     if (stateOfGame === true) {
       switch (event.which) {
@@ -89,18 +50,16 @@ $(document).ready(function() {
         //Alt function
         idValue = $(this).attr("id");
         console.log(cellArray[idValue]);
-        //Gets object based on ID of div clicked on
-        // idValue = $(this).attr("id");
-        // adjacency = newArray.filter(function(obj){
-        //   return obj.cellId == idValue;
-        // });
-        // debugger;
         if ($(this).hasClass("has-bomb")){
           $(".flag").removeClass("flag");
           $(".has-bomb").addClass("bomb-clicked");
           stateOfGame = false;
         } else {
           $(this).addClass("clicked-on");
+          //shows the adjacency value when a cell is clicked on
+          if (cellArray[idValue].adjValue > 0) {
+            $(this).text(cellArray[idValue].adjValue);
+          }
         }
         break;
 
