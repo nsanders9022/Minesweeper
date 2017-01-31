@@ -14,19 +14,29 @@ var c0 = new Cell(false, 6);
 var c1 = new Cell(false, 7);
 var c2 = new Cell(false, 8);
 
+var newArray = [a0, a1, a2, b0, b1, b2, c0, c1, c2];
+
 var a = [a0, a1, a2];
 var b = [b0, b1, b2];
 var c = [c0, c1, c2];
 var gameRows = [a, b, c];
 var width = a.length;
 
-Cell.prototype.whereDaBombs = function() {
-  return this.adjValue;
-};
+var touching = newArray.filter(function(obj){
+  return obj.cellId == $(this).attr("id");
+});
+
+// Cell.prototype.getId = function() {
+//   var idCell = this.cellId;
+//
+// }
+
+// Cell.prototype.whereDaBombs = function() {
+//   return this.adjValue;
+// };
 
 $(document).ready(function() {
-  a1.whereDaBombs();
-  console.log(gameRows[0][0].adjValue);
+  console.log(touching);
   var stateOfGame = true;
   $(".minesweeper-game").contextmenu(function() {
     return false;
@@ -35,12 +45,12 @@ $(document).ready(function() {
     if (stateOfGame === true) {
       switch (event.which) {
         case 1:
-        console.log(b1.whereDaBombs());
+        var idValue = $(this).attr("id");
+        console.log(idValue)
         if ($(this).hasClass("has-bomb")){
           $(".flag").removeClass("flag");
           $(".has-bomb").addClass("bomb-clicked");
           stateOfGame = false;
-          console.log(stateOfGame);
         } else {
           $(this).addClass("clicked-on");
         }
