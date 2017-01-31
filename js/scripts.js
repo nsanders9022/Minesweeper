@@ -24,8 +24,9 @@ function cellIsBomb(obj) {
   return obj.isBomb == true;
 }
 var bomb = cellArray.filter(cellIsBomb);
-var bombCellId = bomb[0].cellId;
-var touchingCells = [3, 5, 1, 7];
+var bId = bomb[0].cellId;
+var base = Math.sqrt(cellArray.length);
+var touchCells = [(bId - base), (bId + base), (bId +1), (bId -1), (bId - (base + 1)), (bId + (base+1)), (bId - (base-1)), (bId + (base-1))];
 
 // function west(obj) {
 //   var surroundingCells= [];
@@ -36,8 +37,9 @@ var touchingCells = [3, 5, 1, 7];
 var surroundingCells = function() {
   var array = [];
   for (i = 0; i < cellArray.length; i++) {
-    for (j = 0; j < touchingCells.length; j++) {
-      if(cellArray[i].cellId === touchingCells[j]) {
+    for (j = 0; j < touchCells.length; j++) {
+      if(cellArray[i].cellId === touchCells[j]) {
+        cellArray[i].adjValue +=1;
         array.push(cellArray[i]);
       }
     }
@@ -61,6 +63,8 @@ var surroundingCells = function() {
 
 $(document).ready(function() {
   console.log(surroundingCells());
+  console.log(bId);
+  console.log(base);
   var stateOfGame = true;
   $(".minesweeper-game").contextmenu(function() {
     return false;
