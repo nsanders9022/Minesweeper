@@ -9,12 +9,12 @@ function Cell(bomb, id) {
 var a0 = new Cell(false, "0");
 var a1 = new Cell(false, "1");
 var a2 = new Cell(true, "2");
-var b0 = new Cell(false, 3);
-var b1 = new Cell(true, 4);
-var b2 = new Cell(false, 5);
-var c0 = new Cell(false, 6);
-var c1 = new Cell(false, 7);
-var c2 = new Cell(false, 8);
+var b0 = new Cell(false, "3");
+var b1 = new Cell(true, "4");
+var b2 = new Cell(false, "5");
+var c0 = new Cell(false, "6");
+var c1 = new Cell(false, "7");
+var c2 = new Cell(false, "8");
 
 var newArray = [a0, a1, a2, b0, b1, b2, c0, c1, c2];
 
@@ -23,8 +23,6 @@ var b = [b0, b1, b2];
 var c = [c0, c1, c2];
 var gameRows = [a, b, c];
 var width = a.length;
-
-
 
 // Cell.prototype.getId = function() {
 //   var idCell = this.cellId;
@@ -37,6 +35,7 @@ var width = a.length;
 
 $(document).ready(function() {
   var stateOfGame = true;
+  var adjacency;
   $(".minesweeper-game").contextmenu(function() {
     return false;
   });
@@ -44,13 +43,19 @@ $(document).ready(function() {
     if (stateOfGame === true) {
       switch (event.which) {
         case 1:
+        //Alt function
         idValue = $(this).attr("id");
-        var adjacency = newArray.filter(function(obj){
-          return obj.cellId == idValue;
-        });
-        console.log(touching);
-        debugger;
-        // console.log(idValue)
+        console.log(newArray[parseInt(idValue)]);
+        //Gets object based on ID of div clicked on
+        // idValue = $(this).attr("id");
+        // adjacency = newArray.filter(function(obj){
+        //   return obj.cellId == idValue;
+        // });
+        // debugger;
+        var westFinder = function(object){
+          return newArray.indexOf(object);
+        }
+        console.log(westFinder(adjacency));
         if ($(this).hasClass("has-bomb")){
           $(".flag").removeClass("flag");
           $(".has-bomb").addClass("bomb-clicked");
