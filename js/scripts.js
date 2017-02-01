@@ -76,6 +76,25 @@ var bombCells = function() {
 var bId = bombCells();
 
 //calculates how many bombs a cell is touching
+
+function Adjacency(baseValue, loopOperator, name) {
+  this.baseValue = baseValue,
+  this.loopOperator = loopOperator,
+  this.directionName = name
+}
+
+var nwAdj = new Adjacency((base + 1), "minus", "nw");
+var nAdj = new Adjacency(base, "minus", "n");
+var neAdj = new Adjacency((base - 1), "minus", "ne");
+var wAdj = new Adjacency((- 1), "minus", "w");
+var eAdj = new Adjacency((+ 1), "plus", "e");
+var swAdj = new Adjacency((base - 1), "plus", "sw");
+var sAdj = new Adjacency(base, "plus", "s");
+var seAdj = new Adjacency((base + 1), "plus", "se");
+var here = new Adjacency(0, 0, "here");
+
+var adjacencyArray = [here, nwAdj, nAdj, neAdj, wAdj, eAdj, swAdj, sAdj, seAdj];
+
 var touch = function() {
   var allCells = [];
   for (l = 0; l < bId.length; l++) {
@@ -96,7 +115,13 @@ var touch = function() {
     allCells.push(sw);
     allCells.push(s);
     allCells.push(se);
+<<<<<<< HEAD
     if (z < base) {
+=======
+    console.log(allCells);
+    //switch statement?
+    if (x < base) {
+>>>>>>> elseif42bingo
       allCells.splice(allCells.indexOf(nw), 1);
       allCells.splice(allCells.indexOf(n), 1);
       allCells.splice(allCells.indexOf(ne), 1);
@@ -143,8 +168,13 @@ var surroundingCells = function() {
   return array;
 }
 
+
+
 //User Interface Logic
 $(document).ready(function() {
+  console.log(touchCells);
+  var array = surroundingCells();
+  console.log(array);
 
   for(var x = 0; x < 6; x++) {
     var row = $("<div class='row'></div>");
@@ -171,6 +201,66 @@ $(document).ready(function() {
   $(".minesweeper-game").contextmenu(function() {
     return false;
   });
+  /////////////////////////////////////////////////////////////////////////////////////
+
+  var south = function(thisPlaceholder) {
+    for (i = parseInt(thisPlaceholder.attr("id")); i < cellArray.length; i += base) {
+      if (cellArray[i].adjValue === 0) {
+        $("#" + i).addClass("clicked-on");
+      } else {
+        $("#" + i).addClass("clicked-on");
+         $("#" + i).text(cellArray[i].adjValue);
+         break;
+     }
+   }
+  }
+
+  var north = function(thisPlaceholder) {
+    for (i = parseInt(thisPlaceholder.attr("id")); i < cellArray.length; i -= base) {
+      if (cellArray[i].adjValue === 0) {
+        $("#" + i).addClass("clicked-on");
+      } else {
+        $("#" + i).addClass("clicked-on");
+         $("#" + i).text(cellArray[i].adjValue);
+         break;
+     }
+   }
+  }
+
+  var east = function(thisPlaceholder) {
+    for (i = parseInt(thisPlaceholder.attr("id")); i < cellArray.length; i++) {
+      if (cellArray[i].adjValue === 0) {
+        if (cellArray[i].cellId % base === base - 1) {
+          $("#" + i).addClass("clicked-on");
+          break;
+        } else {
+          $("#" + i).addClass("clicked-on");
+        }
+      } else {
+        $("#" + i).addClass("clicked-on");
+        $("#" + i).text(cellArray[i].adjValue);
+        break;
+      }
+    }
+  }
+
+  var west = function(thisPlaceholder) {
+    for (i = parseInt(thisPlaceholder.attr("id")); i < cellArray.length; i--) {
+      if (cellArray[i].adjValue === 0) {
+        if (cellArray[i].cellId % base === 0) {
+          $("#" + i).addClass("clicked-on");
+          break;
+        } else {
+          $("#" + i).addClass("clicked-on");
+        }
+      } else {
+        $("#" + i).addClass("clicked-on");
+        $("#" + i).text(cellArray[i].adjValue);
+        break;
+      }
+    }
+  }
+
   //click listener
   $(".cell").mousedown(function(event) {
     if (stateOfGame === true) {
@@ -190,20 +280,17 @@ $(document).ready(function() {
           //If you click on an empty space, it gains class "clicked-on"
         } else {
           //Down
-          for (i = parseInt($(this).attr("id")); i < cellArray.length; i += base) {
-            if (cellArray[i].adjValue === 0) {
-              $("#" + i).addClass("clicked-on");
-            } else {
-              $("#" + i).addClass("clicked-on");
-              $("#" + i).text(cellArray[i].adjValue);
-              break;
-            }
+          if (cellArray[idValue].adjValue > 0) {
+            $(this).addClass("clicked-on");
+            $(this).text(cellArray[idValue].adjValue);
+          } else {
+            south($(this));
+            north($(this));
+            east($(this));
+            west($(this));
           }
           // $(this).addClass("clicked-on");
           //shows the adjacency value when a cell is clicked on
-          if (cellArray[idValue].adjValue > 0) {
-            $(this).text(cellArray[idValue].adjValue);
-          }
         }
         break;
 
