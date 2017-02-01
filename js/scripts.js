@@ -284,6 +284,23 @@ $(document).ready(function() {
     }
   }
 
+  var southeast = function(thisPlaceholder) {
+    for (i = parseInt(thisPlaceholder.attr("id")); i < cellArray.length; i += (base+1)) {
+      if (cellArray[i].adjValue === 0) {
+        if (cellArray[i].cellId % base === base - 1) {
+          $("#" + i).addClass("clicked-on");
+          break;
+        } else{
+          $("#" + i).addClass("clicked-on");
+        }
+      } else {
+        $("#" + i).addClass("clicked-on");
+        $("#" + i).text(cellArray[i].adjValue);
+        break;
+      }
+    }
+  }
+
 
   //click listener
   $(".cell").mousedown(function(event) {
@@ -314,6 +331,8 @@ $(document).ready(function() {
             west($(this));
             northeast($(this));
             northwest($(this));
+            southeast($(this));
+            // southwest($(this));
           }
           // $(this).addClass("clicked-on");
           //shows the adjacency value when a cell is clicked on
