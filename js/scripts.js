@@ -1,61 +1,32 @@
 var idValue;
+var cellArray = [];
+var difficulty;
+var base;
+var numberOfBombs;
+var bombCount;
 
-var bombCount = 6;
-
-function Cell(bomb, id, html) {
+//Object constructor for cell objects
+function Cell(bomb, id) {
   this.isBomb = bomb;
   this.adjValue = 0;
   this.cellId = id;
-  this.html = html;
-  this.bombsTouching = 1;
   this.iterator = 0;
 }
 
-var cell0 = new Cell(false, 0, "1");
-var cell1 = new Cell(false, 1);
-var cell2 = new Cell(false, 2);
-var cell3 = new Cell(false, 3);
-var cell4 = new Cell(true, 4);
-var cell5 = new Cell(false, 5);
-var cell6 = new Cell(false, 6);
-var cell7 = new Cell(false, 7);
-var cell8 = new Cell(false, 8);
-var cell9 = new Cell(false, 9);
-var cell10 = new Cell(false, 10);
-var cell11 = new Cell(false, 11);
-var cell12 = new Cell(false, 12);
-var cell13 = new Cell(false, 13);
-var cell14 = new Cell(false, 14);
-var cell15 = new Cell(false, 15);
-var cell16 = new Cell(true, 16);
-var cell17 = new Cell(false, 17);
-var cell18 = new Cell(false, 18);
-var cell19 = new Cell(false, 19);
-var cell20 = new Cell(false, 20);
-var cell21 = new Cell(false, 21);
-var cell22 = new Cell(false, 22);
-var cell23 = new Cell(false, 23);
-var cell24 = new Cell(false, 24);
-var cell25 = new Cell(false, 25);
-var cell26 = new Cell(false, 26);
-var cell27 = new Cell(false, 27);
-var cell28 = new Cell(false, 28);
-var cell29 = new Cell(false, 29);
-var cell30 = new Cell(false, 30);
-var cell31 = new Cell(false, 31);
-var cell32 = new Cell(true, 32);
-var cell33 = new Cell(true, 33);
-var cell34 = new Cell(false, 34);
-var cell35 = new Cell(false, 35);
-
-var cellArray = [cell0, cell1, cell2, cell3, cell4, cell5, cell6, cell7, cell8, cell9, cell10, cell11, cell12, cell13, cell14, cell15, cell16, cell17, cell18, cell19, cell20, cell21, cell22, cell23, cell24, cell25, cell26, cell27, cell28, cell29, cell30, cell31, cell32, cell33, cell34, cell35];
-
-var base = Math.sqrt(cellArray.length);
-var numberOfBombs = Math.round(cellArray.length / 4);
+//function to create new Cell objects
+var createObjects = function(userNumber) {
+  for (q = 0; q < userNumber; q++) {
+    var newCell = new Cell(false, q);
+    cellArray.push(newCell);
+  }
+  base = Math.sqrt(cellArray.length);
+}
 
 //creates random numbers for bomb objects' cell ids
 function getRandomBombs() {
   var randomNumbers = [];
+  numberOfBombs = Math.round(cellArray.length / 6);
+  bombCount = numberOfBombs;
   for(m = 0; randomNumbers.length < numberOfBombs; m++) {
     var oneRandomBomb = Math.floor(Math.random() * cellArray.length);
     if(randomNumbers.indexOf(oneRandomBomb) == -1) {
@@ -64,10 +35,10 @@ function getRandomBombs() {
   }
   return randomNumbers;
 }
-var randomBombs = getRandomBombs();
 
 //changes isBomb to true for objects with cellId equal to random number
 var bombCells = function() {
+  var randomBombs = getRandomBombs();
   for (k = 0; k < randomBombs.length; k++) {
     for (n = 0; n < cellArray.length; n++) {
       if(cellArray[n].cellId === randomBombs[k]) {
@@ -77,9 +48,9 @@ var bombCells = function() {
   }
   return randomBombs;
 }
-var bId = bombCells();
 
 var touch = function() {
+  var bId = bombCells();
   var allCells = [];
   for (l = 0; l < bId.length; l++) {
     var z = bId[l];
@@ -99,8 +70,6 @@ var touch = function() {
     allCells.push(sw);
     allCells.push(s);
     allCells.push(se);
-
-    console.log(allCells);
     if (z < base) {
       allCells.splice(allCells.indexOf(nw), 1);
       allCells.splice(allCells.indexOf(n), 1);
@@ -132,10 +101,11 @@ var touch = function() {
   }
   return allCells;
 }
-var touchCells = touch();
 
 //adds 1 to adjacency value for each bomb a cell is touching
 var surroundingCells = function() {
+  var touchCells = touch();
+  console.log(touchCells);
   var array = [];
   for (i = 0; i < cellArray.length; i++) {
     for (j = 0; j < touchCells.length; j++) {
@@ -150,23 +120,33 @@ var surroundingCells = function() {
 
 //User Interface Logic
 $(document).ready(function() {
-  $("#show-bomb-count").text(bombCount);
-  console.log(touchCells);
-  var array = surroundingCells();
-  console.log(array);
+  difficulty = parseInt(prompt("25, 36 or 81?"));
+  createObjects(difficulty);
+  surroundingCells();
 
-  for(var x = 0; x < 6; x++) {
+  //Shows bomb counter
+  $("#show-bomb-count").text(bombCount);
+
+
+  //these two for loops make the grid
+  for(var x = 0; x < base; x++) {
     var row = $("<div class='row'></div>");
-    $(".container").append(row);
+    $(".minesweeper-game").append(row);
   }
-  var count = 0;
-  for(var y = 0; y < 6; y++) {
+  for(var y = 0; y < base; y++) {
     var cell = $("<div class='cell'></div>");
     $(".row").append(cell);
-    count++;0
-
   }
-  var array = surroundingCells();
+
+  //gives each cell div an id of 0 incremented by 1
+  function setIDs() {
+    var divs = document.getElementsByClassName('cell');
+    for(var p=0; p<divs.length; p++) {
+      divs[p].id = p;
+    }
+  }
+  setIDs();
+
   //Adds "has-bomb" class to cells
   for (i = 0; i < cellArray.length; i++) {
     if (cellArray[i].isBomb) {
