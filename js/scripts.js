@@ -1,28 +1,28 @@
 var idValue;
-
+var cellArray = [];
+var difficulty;
+var base;
+var numberOfBombs;
+//Object constructor for cell objects
 function Cell(bomb, id) {
   this.isBomb = bomb;
   this.adjValue = 0;
   this.cellId = id;
 }
 
-var cellArray = [];
-
-var createObjects = function() {
-  for (q = 0; q < 36; q++) {
+//function to create new Cell objects
+var createObjects = function(userNumber) {
+  for (q = 0; q < userNumber; q++) {
     var newCell = new Cell(false, q);
     cellArray.push(newCell);
   }
+  base = Math.sqrt(cellArray.length);
 }
-createObjects();
-
-var base = Math.sqrt(cellArray.length);
-var numberOfBombs = Math.round(cellArray.length / 4);
-console.log(base);
 
 //creates random numbers for bomb objects' cell ids
 function getRandomBombs() {
   var randomNumbers = [];
+  numberOfBombs = Math.round(cellArray.length / 4);
   for(m = 0; randomNumbers.length < numberOfBombs; m++) {
     var oneRandomBomb = Math.floor(Math.random() * cellArray.length);
     if(randomNumbers.indexOf(oneRandomBomb) == -1) {
@@ -31,10 +31,10 @@ function getRandomBombs() {
   }
   return randomNumbers;
 }
-var randomBombs = getRandomBombs();
 
 //changes isBomb to true for objects with cellId equal to random number
 var bombCells = function() {
+  var randomBombs = getRandomBombs();
   for (k = 0; k < randomBombs.length; k++) {
     for (n = 0; n < cellArray.length; n++) {
       if(cellArray[n].cellId === randomBombs[k]) {
@@ -44,10 +44,10 @@ var bombCells = function() {
   }
   return randomBombs;
 }
-var bId = bombCells();
 
 //calculates how many bombs a cell is touching
 var touch = function() {
+  var bId = bombCells();
   var allCells = [];
   for (l = 0; l < bId.length; l++) {
     var z = bId[l];
@@ -98,10 +98,11 @@ var touch = function() {
   }
   return allCells;
 }
-var touchCells = touch();
 
 //adds 1 to adjacency value for each bomb a cell is touching
 var surroundingCells = function() {
+  var touchCells = touch();
+  console.log(touchCells);
   var array = [];
   for (i = 0; i < cellArray.length; i++) {
     for (j = 0; j < touchCells.length; j++) {
@@ -116,18 +117,22 @@ var surroundingCells = function() {
 
 //User Interface Logic
 $(document).ready(function() {
-  console.log(bId);
-//these two for loops make the grid
-  for(var x = 0; x < 6; x++) {
+  difficulty = parseInt(prompt("25, 36 or 81?"));
+  createObjects(difficulty);
+  surroundingCells();
+  // console.log(getRandomBombs());
+
+  //these two for loops make the grid
+  for(var x = 0; x < base; x++) {
     var row = $("<div class='row'></div>");
     $(".container").append(row);
   }
-  for(var y = 0; y < 6; y++) {
+  for(var y = 0; y < base; y++) {
     var cell = $("<div class='cell'></div>");
     $(".row").append(cell);
   }
 
-//gives each cell div an id of 0 incremented by 1
+  //gives each cell div an id of 0 incremented by 1
   function setIDs() {
     var divs = document.getElementsByClassName('cell');
     for(var p=0; p<divs.length; p++) {
@@ -136,7 +141,6 @@ $(document).ready(function() {
   }
   setIDs();
 
-  var array = surroundingCells();
   //Adds "has-bomb" class to cells
   for (i = 0; i < cellArray.length; i++) {
     if (cellArray[i].isBomb) {
