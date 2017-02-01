@@ -145,11 +145,6 @@ $(document).ready(function() {
   console.log(touchCells);
   var array = surroundingCells();
   console.log(array);
-  //
-  // for (i = 0; i < cellArray.length; i++) {
-  //   if (cellArray[i] )
-  // }
-
 
   //Adds "has-bomb" class to cells
   for (i = 0; i < cellArray.length; i++) {
@@ -158,6 +153,7 @@ $(document).ready(function() {
     }
   }
   var stateOfGame = true;
+
   //Removes right-click context menu on game
   $(".minesweeper-game").contextmenu(function() {
     return false;
@@ -260,10 +256,10 @@ $(document).ready(function() {
 
   var northeast = function(thisPlaceholder) {
     for (i = parseInt(thisPlaceholder); i < cellArray.length; i -= (base-1)) {
-      if (cellArray[i].iterator === 0) {
-        cellArray[i].iterator += 1;
-        clickExpander(i);
-      }
+      // if (cellArray[i].iterator === 0) {
+      //   cellArray[i].iterator += 1;
+      //   clickExpander(i);
+      // }
       if ($("#" + i).hasClass("flag")) {
         break;
       } else if (cellArray[i].adjValue === 0) {
@@ -283,10 +279,10 @@ $(document).ready(function() {
 
   var northwest = function(thisPlaceholder) {
     for (i = parseInt(thisPlaceholder); i < cellArray.length; i -= (base+1)) {
-      if (cellArray[i].iterator === 0) {
-        cellArray[i].iterator += 1;
-        clickExpander(i);
-      }
+      // if (cellArray[i].iterator === 0) {
+      //   cellArray[i].iterator += 1;
+      //   clickExpander(i);
+      // }
       if ($("#" + i).hasClass("flag")) {
         break;
       } else if (cellArray[i].adjValue === 0) {
@@ -307,10 +303,10 @@ $(document).ready(function() {
   var southeast = function(thisPlaceholder) {
     debugger;
     for (i = parseInt(thisPlaceholder); i < cellArray.length; i += (base+1)) {
-      if (cellArray[i].iterator === 0) {
-        cellArray[i].iterator += 1;
-        clickExpander(i);
-      }
+      // if (cellArray[i].iterator === 0) {
+      //   cellArray[i].iterator += 1;
+      //   clickExpander(i);
+      // }
       if ($("#" + i).hasClass("flag")) {
         break;
       } else if (cellArray[i].adjValue === 0) {
@@ -330,10 +326,10 @@ $(document).ready(function() {
 
   var southwest = function (thisPlaceholder) {
     for (i = parseInt(thisPlaceholder); i < cellArray.length; i += (base-1)) {
-      if (cellArray[i].iterator === 0) {
-        cellArray[i].iterator += 1;
-        clickExpander(i);
-      }
+      // if (cellArray[i].iterator === 0) {
+      //   cellArray[i].iterator += 1;
+      //   clickExpander(i);
+      // }
       if ($("#" + i).hasClass("flag")) {
         break;
       } else if (cellArray[i].adjValue === 0) {
