@@ -1,53 +1,24 @@
 var idValue;
 
-function Cell(bomb, id, html) {
+function Cell(bomb, id) {
   this.isBomb = bomb;
   this.adjValue = 0;
   this.cellId = id;
-  this.html = html;
 }
 
-var cell0 = new Cell(false, 0, "1");
-var cell1 = new Cell(false, 1);
-var cell2 = new Cell(false, 2);
-var cell3 = new Cell(false, 3);
-var cell4 = new Cell(false, 4);
-var cell5 = new Cell(false, 5);
-var cell6 = new Cell(false, 6);
-var cell7 = new Cell(false, 7);
-var cell8 = new Cell(false, 8);
-var cell9 = new Cell(false, 9);
-var cell10 = new Cell(false, 10);
-var cell11 = new Cell(false, 11);
-var cell12 = new Cell(false, 12);
-var cell13 = new Cell(false, 13);
-var cell14 = new Cell(false, 14);
-var cell15 = new Cell(false, 15);
-var cell16 = new Cell(false, 16);
-var cell17 = new Cell(false, 17);
-var cell18 = new Cell(false, 18);
-var cell19 = new Cell(false, 19);
-var cell20 = new Cell(false, 20);
-var cell21 = new Cell(false, 21);
-var cell22 = new Cell(false, 22);
-var cell23 = new Cell(false, 23);
-var cell24 = new Cell(false, 24);
-var cell25 = new Cell(false, 25);
-var cell26 = new Cell(false, 26);
-var cell27 = new Cell(false, 27);
-var cell28 = new Cell(false, 28);
-var cell29 = new Cell(false, 29);
-var cell30 = new Cell(false, 30);
-var cell31 = new Cell(false, 31);
-var cell32 = new Cell(false, 32);
-var cell33 = new Cell(false, 33);
-var cell34 = new Cell(false, 34);
-var cell35 = new Cell(false, 35);
+var cellArray = [];
 
-var cellArray = [cell0, cell1, cell2, cell3, cell4, cell5, cell6, cell7, cell8, cell9, cell10, cell11, cell12, cell13, cell14, cell15, cell16, cell17, cell18, cell19, cell20, cell21, cell22, cell23, cell24, cell25, cell26, cell27, cell28, cell29, cell30, cell31, cell32, cell33, cell34, cell35];
+var createObjects = function() {
+  for (q = 0; q < 36; q++) {
+    var newCell = new Cell(false, q);
+    cellArray.push(newCell);
+  }
+}
+createObjects();
 
 var base = Math.sqrt(cellArray.length);
 var numberOfBombs = Math.round(cellArray.length / 4);
+console.log(base);
 
 //creates random numbers for bomb objects' cell ids
 function getRandomBombs() {
