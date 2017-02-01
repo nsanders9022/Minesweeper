@@ -192,14 +192,13 @@ $(document).ready(function() {
         }
       } else {
         $("#" + i).addClass("clicked-on");
-         $("#" + i).text(cellArray[i].adjValue);
-         break;
-     }
-   }
+        $("#" + i).text(cellArray[i].adjValue);
+        break;
+      }
+    }
   }
 
   var north = function(thisPlaceholder) {
-    // debugger;
     for (i = parseInt(thisPlaceholder.attr("id")); i < cellArray.length; i -= base) {
       if (cellArray[i].adjValue === 0) {
         if (cellArray[i].cellId < base) {
@@ -210,10 +209,10 @@ $(document).ready(function() {
         }
       } else {
         $("#" + i).addClass("clicked-on");
-         $("#" + i).text(cellArray[i].adjValue);
-         break;
-     }
-   }
+        $("#" + i).text(cellArray[i].adjValue);
+        break;
+      }
+    }
   }
 
   var east = function(thisPlaceholder) {
@@ -253,7 +252,7 @@ $(document).ready(function() {
   var northeast = function(thisPlaceholder) {
     for (i = parseInt(thisPlaceholder.attr("id")); i < cellArray.length; i -= (base-1)) {
       if (cellArray[i].adjValue === 0) {
-        if (cellArray[i].cellId % base === base - 1) {
+        if ((cellArray[i].cellId % base === base - 1)||(cellArray[i].cellId < base)) {
           $("#" + i).addClass("clicked-on");
           break;
         } else{
@@ -270,7 +269,7 @@ $(document).ready(function() {
   var northwest = function(thisPlaceholder) {
     for (i = parseInt(thisPlaceholder.attr("id")); i < cellArray.length; i -= (base+1)) {
       if (cellArray[i].adjValue === 0) {
-        if (cellArray[i].cellId % base === 0) {
+        if ((cellArray[i].cellId % base === 0)||(cellArray[i].cellId < base)) {
           $("#" + i).addClass("clicked-on");
           break;
         } else{
@@ -287,7 +286,7 @@ $(document).ready(function() {
   var southeast = function(thisPlaceholder) {
     for (i = parseInt(thisPlaceholder.attr("id")); i < cellArray.length; i += (base+1)) {
       if (cellArray[i].adjValue === 0) {
-        if (cellArray[i].cellId % base === base - 1) {
+        if ((cellArray[i].cellId % base === base - 1)||(cellArray[i].cellId >= base * (base-1))) {
           $("#" + i).addClass("clicked-on");
           break;
         } else{
@@ -304,7 +303,7 @@ $(document).ready(function() {
   var southwest = function(thisPlaceholder) {
     for (i = parseInt(thisPlaceholder.attr("id")); i < cellArray.length; i += (base-1)) {
       if (cellArray[i].adjValue === 0) {
-        if (cellArray[i].cellId % base >= base * (base-1)) {
+        if ((cellArray[i].cellId % base >= base * (base-1)) || (cellArray[i].cellId % base === 0)) {
           $("#" + i).addClass("clicked-on");
           break;
         } else{
@@ -318,6 +317,16 @@ $(document).ready(function() {
     }
   }
 
+  var clickExpander = function(thisPlaceholder) {
+    south(thisPlaceholder);
+    north(thisPlaceholder);
+    east(thisPlaceholder);
+    west(thisPlaceholder);
+    northeast(thisPlaceholder);
+    northwest(thisPlaceholder);
+    southeast(thisPlaceholder);
+    southwest(thisPlaceholder);
+  }
 
   //click listener
   $(".cell").mousedown(function(event) {
@@ -342,14 +351,7 @@ $(document).ready(function() {
             $(this).addClass("clicked-on");
             $(this).text(cellArray[idValue].adjValue);
           } else {
-            south($(this));
-            north($(this));
-            east($(this));
-            west($(this));
-            northeast($(this));
-            northwest($(this));
-            southeast($(this));
-            southwest($(this));
+            clickExpander($(this));
           }
           // $(this).addClass("clicked-on");
           //shows the adjacency value when a cell is clicked on
