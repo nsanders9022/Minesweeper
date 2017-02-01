@@ -145,19 +145,25 @@ var surroundingCells = function() {
 
 //User Interface Logic
 $(document).ready(function() {
-
+  console.log(bId);
+//these two for loops make the grid
   for(var x = 0; x < 6; x++) {
     var row = $("<div class='row'></div>");
     $(".container").append(row);
   }
-  var count = 0;
   for(var y = 0; y < 6; y++) {
     var cell = $("<div class='cell'></div>");
     $(".row").append(cell);
-    count++;0
-
   }
 
+//gives each cell div an id of 0 incremented by 1
+  function setIDs() {
+    var divs = document.getElementsByClassName('cell');
+    for(var p=0; p<divs.length; p++) {
+      divs[p].id = p;
+    }
+  }
+  setIDs();
 
   var array = surroundingCells();
   //Adds "has-bomb" class to cells
