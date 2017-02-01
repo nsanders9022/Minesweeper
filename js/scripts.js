@@ -2,7 +2,7 @@ var idValue;
 
 var bombCount = 6;
 
-function Cell(bomb, id) {
+function Cell(bomb, id, html) {
   this.isBomb = bomb;
   this.adjValue = 0;
   this.cellId = id;
