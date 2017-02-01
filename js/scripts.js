@@ -184,7 +184,12 @@ $(document).ready(function() {
   var south = function(thisPlaceholder) {
     for (i = parseInt(thisPlaceholder.attr("id")); i < cellArray.length; i += base) {
       if (cellArray[i].adjValue === 0) {
-        $("#" + i).addClass("clicked-on");
+        if (cellArray[i].cellId >= base * (base-1)) {
+          $("#" + i).addClass("clicked-on");
+          break;
+        } else {
+          $("#" + i).addClass("clicked-on");
+        }
       } else {
         $("#" + i).addClass("clicked-on");
          $("#" + i).text(cellArray[i].adjValue);
@@ -262,6 +267,24 @@ $(document).ready(function() {
     }
   }
 
+  var northwest = function(thisPlaceholder) {
+    for (i = parseInt(thisPlaceholder.attr("id")); i < cellArray.length; i -= (base+1)) {
+      if (cellArray[i].adjValue === 0) {
+        if (cellArray[i].cellId % base === 0) {
+          $("#" + i).addClass("clicked-on");
+          break;
+        } else{
+          $("#" + i).addClass("clicked-on");
+        }
+      } else {
+        $("#" + i).addClass("clicked-on");
+        $("#" + i).text(cellArray[i].adjValue);
+        break;
+      }
+    }
+  }
+
+
   //click listener
   $(".cell").mousedown(function(event) {
     if (stateOfGame === true) {
@@ -290,6 +313,7 @@ $(document).ready(function() {
             east($(this));
             west($(this));
             northeast($(this));
+            northwest($(this));
           }
           // $(this).addClass("clicked-on");
           //shows the adjacency value when a cell is clicked on
