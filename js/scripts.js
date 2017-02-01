@@ -27,14 +27,14 @@ var cell12 = new Cell(false, 12);
 var cell13 = new Cell(false, 13);
 var cell14 = new Cell(false, 14);
 var cell15 = new Cell(false, 15);
-var cell16 = new Cell(false, 16);
+var cell16 = new Cell(true, 16);
 var cell17 = new Cell(false, 17);
 var cell18 = new Cell(false, 18);
 var cell19 = new Cell(false, 19);
 var cell20 = new Cell(false, 20);
 var cell21 = new Cell(false, 21);
 var cell22 = new Cell(false, 22);
-var cell23 = new Cell(true, 23);
+var cell23 = new Cell(false, 23);
 var cell24 = new Cell(false, 24);
 var cell25 = new Cell(false, 25);
 var cell26 = new Cell(false, 26);
@@ -44,7 +44,7 @@ var cell29 = new Cell(false, 29);
 var cell30 = new Cell(false, 30);
 var cell31 = new Cell(false, 31);
 var cell32 = new Cell(true, 32);
-var cell33 = new Cell(false, 33);
+var cell33 = new Cell(true, 33);
 var cell34 = new Cell(false, 34);
 var cell35 = new Cell(false, 35);
 
@@ -174,6 +174,7 @@ $(document).ready(function() {
     }
   }
   var stateOfGame = true;
+
   //Removes right-click context menu on game
   $(".minesweeper-game").contextmenu(function() {
     return false;
@@ -181,7 +182,6 @@ $(document).ready(function() {
   /////////////////////////////////////////////////////////////////////////////////////
 
   var south = function(thisPlaceholder) {
-    debugger;
     for (i = parseInt(thisPlaceholder); i < cellArray.length; i += base) {
       console.log(i);
       if (cellArray[i].iterator === 0) {
@@ -237,7 +237,7 @@ $(document).ready(function() {
       if ($("#" + i).hasClass("flag")) {
         break;
       } else if (cellArray[i].adjValue === 0) {
-        if (cellArray[i].cellId % base === base - 1) {
+        if (cellArray[i].cellId % base === base - 1 && cellArray[i].cellId < base * base) {
           $("#" + i).addClass("clicked-on");
           break;
         } else {
@@ -276,10 +276,10 @@ $(document).ready(function() {
 
   var northeast = function(thisPlaceholder) {
     for (i = parseInt(thisPlaceholder); i < cellArray.length; i -= (base-1)) {
-      if (cellArray[i].iterator === 0) {
-        cellArray[i].iterator += 1;
-        clickExpander(i);
-      }
+      // if (cellArray[i].iterator === 0) {
+      //   cellArray[i].iterator += 1;
+      //   clickExpander(i);
+      // }
       if ($("#" + i).hasClass("flag")) {
         break;
       } else if (cellArray[i].adjValue === 0) {
@@ -287,7 +287,8 @@ $(document).ready(function() {
           $("#" + i).addClass("clicked-on");
           break;
         } else{
-          $("#" + i).addClass("clicked-on");
+          // $("#" + i).addClass("clicked-on");
+          break;
         }
       } else {
         $("#" + i).addClass("clicked-on");
@@ -299,10 +300,10 @@ $(document).ready(function() {
 
   var northwest = function(thisPlaceholder) {
     for (i = parseInt(thisPlaceholder); i < cellArray.length; i -= (base+1)) {
-      if (cellArray[i].iterator === 0) {
-        cellArray[i].iterator += 1;
-        clickExpander(i);
-      }
+      // if (cellArray[i].iterator === 0) {
+      //   cellArray[i].iterator += 1;
+      //   clickExpander(i);
+      // }
       if ($("#" + i).hasClass("flag")) {
         break;
       } else if (cellArray[i].adjValue === 0) {
@@ -310,7 +311,8 @@ $(document).ready(function() {
           $("#" + i).addClass("clicked-on");
           break;
         } else{
-          $("#" + i).addClass("clicked-on");
+          // $("#" + i).addClass("clicked-on");
+          break;
         }
       } else {
         $("#" + i).addClass("clicked-on");
@@ -321,12 +323,11 @@ $(document).ready(function() {
   }
 
   var southeast = function(thisPlaceholder) {
-    debugger;
     for (i = parseInt(thisPlaceholder); i < cellArray.length; i += (base+1)) {
-      if (cellArray[i].iterator === 0) {
-        cellArray[i].iterator += 1;
-        clickExpander(i);
-      }
+      // if (cellArray[i].iterator === 0) {
+      //   cellArray[i].iterator += 1;
+      //   clickExpander(i);
+      // }
       if ($("#" + i).hasClass("flag")) {
         break;
       } else if (cellArray[i].adjValue === 0) {
@@ -334,7 +335,8 @@ $(document).ready(function() {
           $("#" + i).addClass("clicked-on");
           break;
         } else{
-          $("#" + i).addClass("clicked-on");
+          // $("#" + i).addClass("clicked-on");
+          break;
         }
       } else {
         $("#" + i).addClass("clicked-on");
@@ -346,10 +348,10 @@ $(document).ready(function() {
 
   var southwest = function (thisPlaceholder) {
     for (i = parseInt(thisPlaceholder); i < cellArray.length; i += (base-1)) {
-      if (cellArray[i].iterator === 0) {
-        cellArray[i].iterator += 1;
-        clickExpander(i);
-      }
+      // if (cellArray[i].iterator === 0) {
+      //   cellArray[i].iterator += 1;
+      //   clickExpander(i);
+      // }
       if ($("#" + i).hasClass("flag")) {
         break;
       } else if (cellArray[i].adjValue === 0) {
@@ -357,7 +359,7 @@ $(document).ready(function() {
           $("#" + i).addClass("clicked-on");
           break;
         } else{
-          $("#" + i).addClass("clicked-on");
+          break;
         }
       } else {
         $("#" + i).addClass("clicked-on");
