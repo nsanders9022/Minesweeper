@@ -19,3 +19,16 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+
+.row {
+  margin: 0;
+}
+
+.cell {
+  border: 1px solid #ddd;
+  width: 80px;
+  height: 80px;
+  display: inline-block;
+  margin: 1px;
+  vertical-align: top;
+}

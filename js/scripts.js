@@ -1,13 +1,13 @@
 var idValue;
 
-function Cell(bomb, id) {
+function Cell(bomb, id, html) {
   this.isBomb = bomb;
   this.adjValue = 0;
   this.cellId = id;
-  this.bombsTouching = 1;
+  this.html = html;
 }
 
-var cell0 = new Cell(false, 0);
+var cell0 = new Cell(false, 0, "1");
 var cell1 = new Cell(false, 1);
 var cell2 = new Cell(false, 2);
 var cell3 = new Cell(false, 3);
@@ -79,15 +79,15 @@ var bId = bombCells();
 var touch = function() {
   var allCells = [];
   for (l = 0; l < bId.length; l++) {
-    var x = bId[l];
-    var nw = x - (base + 1);
-    var n = x - base;
-    var ne = x - (base - 1);
-    var w = x - 1;
-    var e = x + 1;
-    var sw = x + (base - 1);
-    var s = x + base;
-    var se = x + (base + 1);
+    var z = bId[l];
+    var nw = z - (base + 1);
+    var n = z - base;
+    var ne = z - (base - 1);
+    var w = z - 1;
+    var e = z + 1;
+    var sw = z + (base - 1);
+    var s = z + base;
+    var se = z + (base + 1);
     allCells.push(nw);
     allCells.push(n);
     allCells.push(ne);
@@ -96,17 +96,17 @@ var touch = function() {
     allCells.push(sw);
     allCells.push(s);
     allCells.push(se);
-    if (x < base) {
+    if (z < base) {
       allCells.splice(allCells.indexOf(nw), 1);
       allCells.splice(allCells.indexOf(n), 1);
       allCells.splice(allCells.indexOf(ne), 1);
     }
-    if (x >= base * (base - 1)) {
+    if (z >= base * (base - 1)) {
       allCells.splice(allCells.indexOf(sw), 1);
       allCells.splice(allCells.indexOf(s), 1);
       allCells.splice(allCells.indexOf(se), 1);
     }
-    if (x % base === base - 1) {
+    if (z % base === base - 1) {
       if (allCells.indexOf(ne) !== -1) {
         allCells.splice(allCells.indexOf(ne), 1);
       }
@@ -115,7 +115,7 @@ var touch = function() {
         allCells.splice(allCells.indexOf(se), 1);
       }
     }
-    if (x % base === 0) {
+    if (z % base === 0) {
       if (allCells.indexOf(nw) !== -1) {
         allCells.splice(allCells.indexOf(nw), 1);
       }
@@ -145,6 +145,20 @@ var surroundingCells = function() {
 
 //User Interface Logic
 $(document).ready(function() {
+
+  for(var x = 0; x < 6; x++) {
+    var row = $("<div class='row'></div>");
+    $(".container").append(row);
+  }
+  var count = 0;
+  for(var y = 0; y < 6; y++) {
+    var cell = $("<div class='cell'></div>");
+    $(".row").append(cell);
+    count++;0
+
+  }
+
+
   var array = surroundingCells();
   //Adds "has-bomb" class to cells
   for (i = 0; i < cellArray.length; i++) {
