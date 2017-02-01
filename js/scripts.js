@@ -65,21 +65,23 @@ var bombCells = function() {
 var bId = bombCells();
 
 
-function Adjacency(baseValue, loopOperator) {
+function Adjacency(baseValue, loopOperator, name) {
   this.baseValue = baseValue,
-  this.loopOperator = loopOperator
+  this.loopOperator = loopOperator,
+  this.directionName = name
 }
 
-var nwAdj = new Adjacency((base + 1), "minus");
-var nAdj = new Adjacency(base, "minus");
-var neAdj = new Adjacency((base - 1), "minus");
-var wAdj = new Adjacency((-1), "minus");
-var eAdj = new Adjacency((+ 1), "plus");
-var swAdj = new Adjacency((base - 1), "plus");
-var sAdj = new Adjacency(base, "plus");
-var seAdj = new Adjacency((base + 1), "plus");
+var nwAdj = new Adjacency((base + 1), "minus", "nw");
+var nAdj = new Adjacency(base, "minus", "n");
+var neAdj = new Adjacency((base - 1), "minus", "ne");
+var wAdj = new Adjacency((- 1), "minus", "w");
+var eAdj = new Adjacency((+ 1), "plus", "e");
+var swAdj = new Adjacency((base - 1), "plus", "sw");
+var sAdj = new Adjacency(base, "plus", "s");
+var seAdj = new Adjacency((base + 1), "plus", "se");
+var here = new Adjacency(0, 0, "here");
 
-var adjacencyArray = [nwAdj, nAdj, neAdj, wAdj, eAdj, swAdj, sAdj, seAdj];
+var adjacencyArray = [here, nwAdj, nAdj, neAdj, wAdj, eAdj, swAdj, sAdj, seAdj];
 
 var touch = function() {
   var allCells = [];
@@ -158,6 +160,11 @@ $(document).ready(function() {
   console.log(touchCells);
   var array = surroundingCells();
   console.log(array);
+  //
+  // for (i = 0; i < cellArray.length; i++) {
+  //   if (cellArray[i] )
+  // }
+
 
   //Adds "has-bomb" class to cells
 
@@ -175,33 +182,47 @@ $(document).ready(function() {
   var clickExpander = function(element){
     debugger;
     for (j = 0; j < adjacencyArray.length; j++) {
-      if (adjacencyArray[j].loopOperator === "plus") {
-        for (i = parseInt(element.attr("id")); i < cellArray.length; i += adjacencyArray[j].baseValue) {
+      console.log(adjacencyArray[j].directionName);
+      for (i = parseInt(element.attr("id")); i < cellArray.length; i += adjacencyArray[j].baseValue) {
+        if (adjacencyArray[j].loopOperator === "plus") {
+          console.log("Plus/Minus:" + adjacencyArray[j].loopOperator);
           if (cellArray[i].adjValue === 0) {
-            if ((i >= (base * (base - 1))) || (i % base === base - 1)){
+            if ((cellArray[i].cellId >= (base * (base - 1))) || (cellArray[i].cellId % base === base - 1) || (cellArray[i].cellId < base) || (cellArray[i].cellId % base === 0)){
+              $("#" + i).addClass("clicked-on");
+              console.log("Cell ID:" + cellArray[i].cellId + ", edge case and stop wrapping");
               break;
             } else {
               $("#" + i).addClass("clicked-on");
+              console.log("Cell ID:" + cellArray[i].cellId + ", continue to next in same direction")
             }
           } else {
             $("#" + i).addClass("clicked-on");
             $("#" + i).text(cellArray[i].adjValue);
+            console.log("Cell ID:" + cellArray[i].cellId + ", print adjacency to page")
             break;
           }
-        }
-      } else {
-        for (i = parseInt(element.attr("id")); i < cellArray.length; i -= adjacencyArray[j].baseValue) {
+        } else if (adjacencyArray[j].loopOperator === "minus"){
+          console.log("Plus/Minus:" + adjacencyArray[j].loopOperator);
           if (cellArray[i].adjValue === 0) {
-            if ((i < base) || (i % base === 0)){
+            if ((cellArray[i].cellId < base) || (cellArray[i].cellId % base === 0) || (cellArray[i].cellId >= (base * (base - 1))) || (cellArray[i].cellId % base === base - 1)){
+              $("#" + i).addClass("clicked-on");
+              console.log("Cell ID:" + cellArray[i].cellId + ", edge case and stop wrapping");
               break;
             } else {
               $("#" + i).addClass("clicked-on");
+              console.log("Cell ID:" + cellArray[i].cellId + ", continue to next in same direction")
             }
           } else {
             $("#" + i).addClass("clicked-on");
             $("#" + i).text(cellArray[i].adjValue);
+            console.log("Cell ID:" + cellArray[i].cellId + ", print adjacency to page")
             break;
           }
+        } else {
+          $("#" + i).addClass("clicked-on");
+          break;
+          console.log(adjacencyArray[j]);
+          console.log("Broken");
         }
       }
     }
