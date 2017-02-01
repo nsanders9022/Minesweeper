@@ -17,7 +17,7 @@ var cell3 = new Cell(false, 3);
 var cell4 = new Cell(true, 4);
 var cell5 = new Cell(false, 5);
 var cell6 = new Cell(false, 6);
-var cell7 = new Cell(true, 7);
+var cell7 = new Cell(false, 7);
 var cell8 = new Cell(false, 8);
 var cell9 = new Cell(false, 9);
 var cell10 = new Cell(false, 10);
@@ -26,7 +26,7 @@ var cell12 = new Cell(false, 12);
 var cell13 = new Cell(false, 13);
 var cell14 = new Cell(false, 14);
 var cell15 = new Cell(false, 15);
-var cell16 = new Cell(true, 16);
+var cell16 = new Cell(false, 16);
 var cell17 = new Cell(false, 17);
 var cell18 = new Cell(false, 18);
 var cell19 = new Cell(false, 19);
@@ -43,7 +43,7 @@ var cell29 = new Cell(false, 29);
 var cell30 = new Cell(false, 30);
 var cell31 = new Cell(false, 31);
 var cell32 = new Cell(true, 32);
-var cell33 = new Cell(true, 33);
+var cell33 = new Cell(false, 33);
 var cell34 = new Cell(false, 34);
 var cell35 = new Cell(false, 35);
 
@@ -170,7 +170,9 @@ $(document).ready(function() {
         cellArray[i].iterator += 1;
         clickExpander(i);
       }
-      if (cellArray[i].adjValue === 0) {
+      if ($("#" + i).hasClass("flag")) {
+        break;
+      } else if (cellArray[i].adjValue === 0)  {
         if (cellArray[i].cellId >= base * (base-1)) {
           $("#" + i).addClass("clicked-on");
           break;
@@ -191,7 +193,9 @@ $(document).ready(function() {
         cellArray[i].iterator += 1;
         clickExpander(i);
       }
-      if (cellArray[i].adjValue === 0) {
+      if ($("#" + i).hasClass("flag")) {
+        break;
+      } else if (cellArray[i].adjValue === 0) {
         if (cellArray[i].cellId < base) {
           $("#" + i).addClass("clicked-on");
           break;
@@ -212,7 +216,9 @@ $(document).ready(function() {
         cellArray[i].iterator += 1;
         clickExpander(i);
       }
-      if (cellArray[i].adjValue === 0) {
+      if ($("#" + i).hasClass("flag")) {
+        break;
+      } else if (cellArray[i].adjValue === 0) {
         if (cellArray[i].cellId % base === base - 1) {
           $("#" + i).addClass("clicked-on");
           break;
@@ -233,7 +239,9 @@ $(document).ready(function() {
         cellArray[i].iterator += 1;
         clickExpander(i);
       }
-      if (cellArray[i].adjValue === 0) {
+      if ($("#" + i).hasClass("flag")) {
+        break;
+      } else if (cellArray[i].adjValue === 0) {
         if (cellArray[i].cellId % base === 0) {
           $("#" + i).addClass("clicked-on");
           break;
@@ -254,7 +262,9 @@ $(document).ready(function() {
         cellArray[i].iterator += 1;
         clickExpander(i);
       }
-      if (cellArray[i].adjValue === 0) {
+      if ($("#" + i).hasClass("flag")) {
+        break;
+      } else if (cellArray[i].adjValue === 0) {
         if ((cellArray[i].cellId % base === base - 1)||(cellArray[i].cellId < base)) {
           $("#" + i).addClass("clicked-on");
           break;
@@ -275,7 +285,9 @@ $(document).ready(function() {
         cellArray[i].iterator += 1;
         clickExpander(i);
       }
-      if (cellArray[i].adjValue === 0) {
+      if ($("#" + i).hasClass("flag")) {
+        break;
+      } else if (cellArray[i].adjValue === 0) {
         if ((cellArray[i].cellId % base === 0)||(cellArray[i].cellId < base)) {
           $("#" + i).addClass("clicked-on");
           break;
@@ -296,7 +308,9 @@ $(document).ready(function() {
         cellArray[i].iterator += 1;
         clickExpander(i);
       }
-      if (cellArray[i].adjValue === 0) {
+      if ($("#" + i).hasClass("flag")) {
+        break;
+      } else if (cellArray[i].adjValue === 0) {
         if ((cellArray[i].cellId % base === base - 1)||(cellArray[i].cellId >= base * (base-1))) {
           $("#" + i).addClass("clicked-on");
           break;
@@ -317,7 +331,9 @@ $(document).ready(function() {
         cellArray[i].iterator += 1;
         clickExpander(i);
       }
-      if (cellArray[i].adjValue === 0) {
+      if ($("#" + i).hasClass("flag")) {
+        break;
+      } else if (cellArray[i].adjValue === 0) {
         if ((cellArray[i].cellId % base >= base * (base-1)) || (cellArray[i].cellId % base === 0)) {
           $("#" + i).addClass("clicked-on");
           break;
