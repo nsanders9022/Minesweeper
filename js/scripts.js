@@ -192,6 +192,17 @@ $(document).ready(function() {
    }
   }
 
+  var north = function(thisPlaceholder) {
+    for (i = parseInt(thisPlaceholder.attr("id")); i < cellArray.length; i -= base) {
+      if (cellArray[i].adjValue === 0) {
+        $("#" + i).addClass("clicked-on");
+      } else {
+        $("#" + i).addClass("clicked-on");
+         $("#" + i).text(cellArray[i].adjValue);
+         break;
+     }
+   }
+  }
 
 
 
@@ -220,6 +231,7 @@ $(document).ready(function() {
             $(this).text(cellArray[idValue].adjValue);
           } else {
             south($(this));
+            north($(this));
           }
           // $(this).addClass("clicked-on");
           //shows the adjacency value when a cell is clicked on
