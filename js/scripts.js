@@ -11,7 +11,7 @@ var cell0 = new Cell(false, 0);
 var cell1 = new Cell(false, 1);
 var cell2 = new Cell(false, 2);
 var cell3 = new Cell(false, 3);
-var cell4 = new Cell(true, 4);
+var cell4 = new Cell(false, 4);
 var cell5 = new Cell(false, 5);
 var cell6 = new Cell(false, 6);
 var cell7 = new Cell(false, 7);
@@ -20,7 +20,7 @@ var cell9 = new Cell(false, 9);
 var cell10 = new Cell(false, 10);
 var cell11 = new Cell(false, 11);
 var cell12 = new Cell(false, 12);
-var cell13 = new Cell(true, 13);
+var cell13 = new Cell(false, 13);
 var cell14 = new Cell(false, 14);
 var cell15 = new Cell(false, 15);
 var cell16 = new Cell(false, 16);
@@ -65,23 +65,23 @@ var bombCells = function() {
 var bId = bombCells();
 
 
-function Adjacency(baseValue, loopOperator, name) {
-  this.baseValue = baseValue,
-  this.loopOperator = loopOperator,
-  this.directionName = name
-}
-
-var nwAdj = new Adjacency((base + 1), "minus", "nw");
-var nAdj = new Adjacency(base, "minus", "n");
-var neAdj = new Adjacency((base - 1), "minus", "ne");
-var wAdj = new Adjacency((- 1), "minus", "w");
-var eAdj = new Adjacency((+ 1), "plus", "e");
-var swAdj = new Adjacency((base - 1), "plus", "sw");
-var sAdj = new Adjacency(base, "plus", "s");
-var seAdj = new Adjacency((base + 1), "plus", "se");
-var here = new Adjacency(0, 0, "here");
-
-var adjacencyArray = [here, nwAdj, nAdj, neAdj, wAdj, eAdj, swAdj, sAdj, seAdj];
+// function Adjacency(baseValue, loopOperator, name) {
+//   this.baseValue = baseValue,
+//   this.loopOperator = loopOperator,
+//   this.directionName = name
+// }
+//
+// var nwAdj = new Adjacency((base + 1), "minus", "nw");
+// var nAdj = new Adjacency(base, "minus", "n");
+// var neAdj = new Adjacency((base - 1), "minus", "ne");
+// var wAdj = new Adjacency((- 1), "minus", "w");
+// var eAdj = new Adjacency((+ 1), "plus", "e");
+// var swAdj = new Adjacency((base - 1), "plus", "sw");
+// var sAdj = new Adjacency(base, "plus", "s");
+// var seAdj = new Adjacency((base + 1), "plus", "se");
+// var here = new Adjacency(0, 0, "here");
+//
+// var adjacencyArray = [here, nwAdj, nAdj, neAdj, wAdj, eAdj, swAdj, sAdj, seAdj];
 
 var touch = function() {
   var allCells = [];
@@ -169,6 +169,7 @@ $(document).ready(function() {
   //Adds "has-bomb" class to cells
 
   for (i = 0; i < cellArray.length; i++) {
+    $("#" + i).text(cellArray[i].cellId);
     if (cellArray[i].isBomb) {
       $("#" + cellArray[i].cellId).addClass("has-bomb");
     }
@@ -193,9 +194,15 @@ $(document).ready(function() {
   }
 
   var north = function(thisPlaceholder) {
+    // debugger;
     for (i = parseInt(thisPlaceholder.attr("id")); i < cellArray.length; i -= base) {
       if (cellArray[i].adjValue === 0) {
-        $("#" + i).addClass("clicked-on");
+        if (cellArray[i].cellId < base) {
+          $("#" + i).addClass("clicked-on");
+          break;
+        } else {
+          $("#" + i).addClass("clicked-on");
+        }
       } else {
         $("#" + i).addClass("clicked-on");
          $("#" + i).text(cellArray[i].adjValue);
@@ -238,6 +245,23 @@ $(document).ready(function() {
     }
   }
 
+  var northeast = function(thisPlaceholder) {
+    for (i = parseInt(thisPlaceholder.attr("id")); i < cellArray.length; i -= (base-1)) {
+      if (cellArray[i].adjValue === 0) {
+        if (cellArray[i].cellId % base === base - 1) {
+          $("#" + i).addClass("clicked-on");
+          break;
+        } else{
+          $("#" + i).addClass("clicked-on");
+        }
+      } else {
+        $("#" + i).addClass("clicked-on");
+        $("#" + i).text(cellArray[i].adjValue);
+        break;
+      }
+    }
+  }
+
   //click listener
   $(".cell").mousedown(function(event) {
     if (stateOfGame === true) {
@@ -265,6 +289,7 @@ $(document).ready(function() {
             north($(this));
             east($(this));
             west($(this));
+            northeast($(this));
           }
           // $(this).addClass("clicked-on");
           //shows the adjacency value when a cell is clicked on
