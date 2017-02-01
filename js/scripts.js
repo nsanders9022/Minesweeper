@@ -179,54 +179,23 @@ $(document).ready(function() {
     return false;
   });
   /////////////////////////////////////////////////////////////////////////////////////
-  var clickExpander = function(element){
-    debugger;
-    for (j = 0; j < adjacencyArray.length; j++) {
-      console.log(adjacencyArray[j].directionName);
-      for (i = parseInt(element.attr("id")); i < cellArray.length; i += adjacencyArray[j].baseValue) {
-        if (adjacencyArray[j].loopOperator === "plus") {
-          console.log("Plus/Minus:" + adjacencyArray[j].loopOperator);
-          if (cellArray[i].adjValue === 0) {
-            if ((cellArray[i].cellId >= (base * (base - 1))) || (cellArray[i].cellId % base === base - 1) || (cellArray[i].cellId < base) || (cellArray[i].cellId % base === 0)){
-              $("#" + i).addClass("clicked-on");
-              console.log("Cell ID:" + cellArray[i].cellId + ", edge case and stop wrapping");
-              break;
-            } else {
-              $("#" + i).addClass("clicked-on");
-              console.log("Cell ID:" + cellArray[i].cellId + ", continue to next in same direction")
-            }
-          } else {
-            $("#" + i).addClass("clicked-on");
-            $("#" + i).text(cellArray[i].adjValue);
-            console.log("Cell ID:" + cellArray[i].cellId + ", print adjacency to page")
-            break;
-          }
-        } else if (adjacencyArray[j].loopOperator === "minus"){
-          console.log("Plus/Minus:" + adjacencyArray[j].loopOperator);
-          if (cellArray[i].adjValue === 0) {
-            if ((cellArray[i].cellId < base) || (cellArray[i].cellId % base === 0) || (cellArray[i].cellId >= (base * (base - 1))) || (cellArray[i].cellId % base === base - 1)){
-              $("#" + i).addClass("clicked-on");
-              console.log("Cell ID:" + cellArray[i].cellId + ", edge case and stop wrapping");
-              break;
-            } else {
-              $("#" + i).addClass("clicked-on");
-              console.log("Cell ID:" + cellArray[i].cellId + ", continue to next in same direction")
-            }
-          } else {
-            $("#" + i).addClass("clicked-on");
-            $("#" + i).text(cellArray[i].adjValue);
-            console.log("Cell ID:" + cellArray[i].cellId + ", print adjacency to page")
-            break;
-          }
-        } else {
-          $("#" + i).addClass("clicked-on");
-          break;
-          console.log(adjacencyArray[j]);
-          console.log("Broken");
-        }
-      }
-    }
+
+  var south = function(thisPlaceholder) {
+    for (i = parseInt(thisPlaceholder.attr("id")); i < cellArray.length; i += base) {
+      if (cellArray[i].adjValue === 0) {
+        $("#" + i).addClass("clicked-on");
+      } else {
+        $("#" + i).addClass("clicked-on");
+         $("#" + i).text(cellArray[i].adjValue);
+         break;
+     }
+   }
   }
+
+
+
+
+
   //click listener
   $(".cell").mousedown(function(event) {
     if (stateOfGame === true) {
@@ -250,7 +219,7 @@ $(document).ready(function() {
             $(this).addClass("clicked-on");
             $(this).text(cellArray[idValue].adjValue);
           } else {
-            clickExpander($(this));
+            south($(this));
           }
           // $(this).addClass("clicked-on");
           //shows the adjacency value when a cell is clicked on
