@@ -165,7 +165,9 @@ $(document).ready(function() {
   /////////////////////////////////////////////////////////////////////////////////////
 
   var south = function(thisPlaceholder) {
+    debugger;
     for (i = parseInt(thisPlaceholder); i < cellArray.length; i += base) {
+      console.log(i);
       if (cellArray[i].iterator === 0) {
         cellArray[i].iterator += 1;
         clickExpander(i);
@@ -303,6 +305,7 @@ $(document).ready(function() {
   }
 
   var southeast = function(thisPlaceholder) {
+    debugger;
     for (i = parseInt(thisPlaceholder); i < cellArray.length; i += (base+1)) {
       if (cellArray[i].iterator === 0) {
         cellArray[i].iterator += 1;
