@@ -1,5 +1,7 @@
 var idValue;
 
+var bombCount = 6;
+
 function Cell(bomb, id) {
   this.isBomb = bomb;
   this.adjValue = 0;
@@ -64,25 +66,6 @@ var bombCells = function() {
   return bId;
 }
 var bId = bombCells();
-
-
-// function Adjacency(baseValue, loopOperator, name) {
-//   this.baseValue = baseValue,
-//   this.loopOperator = loopOperator,
-//   this.directionName = name
-// }
-//
-// var nwAdj = new Adjacency((base + 1), "minus", "nw");
-// var nAdj = new Adjacency(base, "minus", "n");
-// var neAdj = new Adjacency((base - 1), "minus", "ne");
-// var wAdj = new Adjacency((- 1), "minus", "w");
-// var eAdj = new Adjacency((+ 1), "plus", "e");
-// var swAdj = new Adjacency((base - 1), "plus", "sw");
-// var sAdj = new Adjacency(base, "plus", "s");
-// var seAdj = new Adjacency((base + 1), "plus", "se");
-// var here = new Adjacency(0, 0, "here");
-//
-// var adjacencyArray = [here, nwAdj, nAdj, neAdj, wAdj, eAdj, swAdj, sAdj, seAdj];
 
 var touch = function() {
   var allCells = [];
@@ -158,6 +141,7 @@ var surroundingCells = function() {
 
 //User Interface Logic
 $(document).ready(function() {
+  $("#show-bomb-count").text(bombCount);
   console.log(touchCells);
   var array = surroundingCells();
   console.log(array);
@@ -181,7 +165,6 @@ $(document).ready(function() {
   /////////////////////////////////////////////////////////////////////////////////////
 
   var south = function(thisPlaceholder) {
-    debugger;
     for (i = parseInt(thisPlaceholder); i < cellArray.length; i += base) {
       if (cellArray[i].iterator === 0) {
         cellArray[i].iterator += 1;
@@ -203,7 +186,6 @@ $(document).ready(function() {
   }
 
   var north = function(thisPlaceholder) {
-    debugger;
     for (i = parseInt(thisPlaceholder); i < cellArray.length; i -= base) {
       if (cellArray[i].iterator === 0) {
         cellArray[i].iterator += 1;
@@ -360,7 +342,7 @@ $(document).ready(function() {
     southeast(thisPlaceholder);
     southwest(thisPlaceholder);
   }
-  
+
   //click listener
   $(".cell").mousedown(function(event) {
     if (stateOfGame === true) {
@@ -397,9 +379,13 @@ $(document).ready(function() {
         //Flag toggling
         if ($(this).hasClass("flag")) {
           $(this).removeClass("flag")
+          bombCount += 1;
+          $("#show-bomb-count").text(bombCount);
         } else if ($(this).hasClass("clicked-on")){
           break;
         } else {
+          bombCount -= 1;
+          $("#show-bomb-count").text(bombCount);
           $(this).addClass("flag");
         }
       }
