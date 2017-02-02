@@ -136,7 +136,7 @@ $(document).ready(function() {
     $("#screen-overlay").hide();
     $(".container").show();
     $("#final").show();
-    $(".minesweeper-game, .bomb-count").addClass("beginner");
+    $(".minesweeper-game, .bomb-count, #reload-page").addClass("beginner");
   })
 
   $("#intermediate").click(function(){
@@ -144,7 +144,7 @@ $(document).ready(function() {
     $("#screen-overlay").hide();
     $(".container").show();
     $("#final").show();
-        $(".minesweeper-game, .bomb-count").addClass("intermediate");
+        $(".minesweeper-game, .bomb-count, #reload-page").addClass("intermediate");
   })
 
   $("#expert").click(function(){
@@ -152,7 +152,7 @@ $(document).ready(function() {
     $("#screen-overlay").hide();
     $(".container").show();
     $("#final").show();
-        $(".minesweeper-game, .bomb-count").addClass("expert");
+        $(".minesweeper-game, .bomb-count, #reload-page").addClass("expert");
   })
 
   var createGame = function(mode) {
@@ -160,6 +160,10 @@ $(document).ready(function() {
     difficulty = mode.cellCount;
     createObjects(difficulty);
     surroundingCells();
+
+    $("#reload-page").click(function(){
+      location.reload();
+    })
 
     //Shows bomb counter
     $("#show-bomb-count").text(bombCount);

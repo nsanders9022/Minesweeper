@@ -131,10 +131,26 @@ button.levels {
   background-color: #4B3252;
 }
 
-.bomb-count {
+.bomb-count, #reload-page {
     font-family: 'Orbitron', sans-serif;
     color: white;
     font-size: 24px;
+    text-transform: uppercase;
+    display: inline-block;
+}
+
+.bomb-count {
+  margin-bottom: -5px;
+}
+
+#reload-page {
+  float: right;
+  margin-top: -40px;
+}
+
+#reload-page:hover {
+  color: #bd4d31;
+  cursor: pointer;
 }
 
 #win-lose {
