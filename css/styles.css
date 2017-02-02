@@ -86,6 +86,14 @@ button.levels {
   font-size: 25px;
   padding-top: 16px;
 }
+
+button.levels:hover {
+    color: #bd4d31;
+}
+
+button.levels:active {
+  border: 0;
+}
 /*
 .cell {
   border: 1px solid black;
