@@ -157,7 +157,19 @@ $(document).ready(function() {
   });
   /////////////////////////////////////////////////////////////////////////////////////
   var clickExpander = function(clicked) {
-    console.log(cellArray[clicked].adjValue);
+    var showCells = [];
+    var number = 0;
+    console.log(cellArray[clicked + number].isBomb);
+    while (cellArray[clicked + number].isBomb === false) {
+      if ((clicked + number) % base === base - 1) {
+        showCells.push(cellArray[clicked + number].cellId);
+        break;
+      } else {
+        showCells.push(cellArray[clicked + number].cellId);
+        number ++;
+      }
+    }
+    console.log(showCells);
   }
 
   // var south = function(thisPlaceholder) {
