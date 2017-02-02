@@ -49,6 +49,7 @@ var bombCells = function() {
   return randomBombs;
 }
 
+//Sets adjacency values
 var touch = function() {
   var bId = bombCells();
   var allCells = [];
@@ -153,14 +154,16 @@ $(document).ready(function() {
       $("#" + cellArray[i].cellId).addClass("has-bomb");
     }
   }
+
+  //Not game over
   var stateOfGame = true;
 
   //Removes right-click context menu on game
   $(".minesweeper-game").contextmenu(function() {
     return false;
   });
-  /////////////////////////////////////////////////////////////////////////////////////
 
+  /////////////////////////////////////////////////////////////////////////////////////
   var south = function(thisPlaceholder) {
     for (i = parseInt(thisPlaceholder); i < cellArray.length; i += base) {
       console.log(i);
@@ -379,12 +382,11 @@ $(document).ready(function() {
           //Down
           if (cellArray[idValue].adjValue > 0) {
             $(this).addClass("clicked-on");
+            //shows the adjacency value when a cell is clicked on
             $(this).text(cellArray[idValue].adjValue);
           } else {
             clickExpander($(this).attr("id"));
           }
-          // $(this).addClass("clicked-on");
-          //shows the adjacency value when a cell is clicked on
         }
         break;
 
@@ -404,5 +406,5 @@ $(document).ready(function() {
         }
       }
     }
-  });
-});
+  })
+})
