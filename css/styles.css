@@ -14,7 +14,6 @@ body {
   background-color: rgba(0, 0, 0, 0.44);
   width: 100%;
   height: 100%;
-  display: none;
 }
 
 #play-mode {
@@ -28,7 +27,6 @@ body {
   padding: 30px;
   z-index: 1001;
   color: #fff;
-  display: none;
 }
 
 .jumbotron {
@@ -47,11 +45,11 @@ body {
 }
 
 #final {
-  /*display: none;*/
+  display: none;
 }
 
 .container {
-  /*display: none;*/
+  display: none;
   border: 1px solid green;
   padding: 0px;
   width: 70%;
@@ -60,11 +58,22 @@ body {
 
 .minesweeper-game {
   display: inline-block;
-  margin: 0 auto;
   border: 1px solid blue;
   position: absolute;
   left: 50%;
   top: 50%;
+}
+
+.beginner {
+    margin: -90px 0 0 -90px;
+}
+
+.intermediate {
+  margin: -240px 0 0 -240px;
+}
+
+.expert {
+  margin: -450px 0 0 -450px;
 }
 
 button.levels {
