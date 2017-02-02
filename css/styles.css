@@ -50,7 +50,7 @@ body {
 
 .container {
   display: none;
-  border: 1px solid green;
+  /*border: 1px solid green;*/
   padding: 0px;
   width: 901px;
   margin-top: -7%;
@@ -92,13 +92,11 @@ button.levels {
   float:left;
 }*/
 
-.clicked-on {
-  background-color: #ADD8E6;
-}
 
 .bomb-clicked {
-  background-image: url(../images/boom-bomb.png);
+  background-image: url(../images/bomber.png);
   background-repeat: no-repeat;
+  background-size: contain;
 }
 
 .flag {
@@ -125,4 +123,8 @@ button.levels {
   font-size: 20px;
   text-align: center;
   font-family: 'Orbitron', sans-serif;
+}
+
+.clicked-on {
+  background-color: #4B3252;
 }
