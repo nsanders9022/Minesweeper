@@ -1,4 +1,4 @@
-var idValue;
+var idValue; //placeholder to get the id of the cell that's clicked on
 var cellArray = [];
 var difficulty;
 var base;
@@ -49,9 +49,10 @@ var bombCells = function() {
   return randomBombs;
 }
 
+//creates an array full of cell id numbers that are next to bombs
 var touch = function() {
   var bId = bombCells();
-  var allCells = [];
+  var cellsNextToBombs = [];
   for (l = 0; l < bId.length; l++) {
     var z = bId[l];
     var nw = z - (base + 1);
@@ -62,60 +63,56 @@ var touch = function() {
     var sw = z + (base - 1);
     var s = z + base;
     var se = z + (base + 1);
-    allCells.push(nw);
-    allCells.push(n);
-    allCells.push(ne);
-    allCells.push(w);
-    allCells.push(e);
-    allCells.push(sw);
-    allCells.push(s);
-    allCells.push(se);
+    cellsNextToBombs.push(nw);
+    cellsNextToBombs.push(n);
+    cellsNextToBombs.push(ne);
+    cellsNextToBombs.push(w);
+    cellsNextToBombs.push(e);
+    cellsNextToBombs.push(sw);
+    cellsNextToBombs.push(s);
+    cellsNextToBombs.push(se);
     if (z < base) {
-      allCells.splice(allCells.indexOf(nw), 1);
-      allCells.splice(allCells.indexOf(n), 1);
-      allCells.splice(allCells.indexOf(ne), 1);
+      cellsNextToBombs.splice(cellsNextToBombs.indexOf(nw), 1);
+      cellsNextToBombs.splice(cellsNextToBombs.indexOf(n), 1);
+      cellsNextToBombs.splice(cellsNextToBombs.indexOf(ne), 1);
     }
     if (z >= base * (base - 1)) {
-      allCells.splice(allCells.indexOf(sw), 1);
-      allCells.splice(allCells.indexOf(s), 1);
-      allCells.splice(allCells.indexOf(se), 1);
+      cellsNextToBombs.splice(cellsNextToBombs.indexOf(sw), 1);
+      cellsNextToBombs.splice(cellsNextToBombs.indexOf(s), 1);
+      cellsNextToBombs.splice(cellsNextToBombs.indexOf(se), 1);
     }
     if (z % base === base - 1) {
-      if (allCells.indexOf(ne) !== -1) {
-        allCells.splice(allCells.indexOf(ne), 1);
+      if (cellsNextToBombs.indexOf(ne) !== -1) {
+        cellsNextToBombs.splice(cellsNextToBombs.indexOf(ne), 1);
       }
-      allCells.splice(allCells.indexOf(e), 1);
-      if (allCells.indexOf(se) !== -1) {
-        allCells.splice(allCells.indexOf(se), 1);
+      cellsNextToBombs.splice(cellsNextToBombs.indexOf(e), 1);
+      if (cellsNextToBombs.indexOf(se) !== -1) {
+        cellsNextToBombs.splice(cellsNextToBombs.indexOf(se), 1);
       }
     }
     if (z % base === 0) {
-      if (allCells.indexOf(nw) !== -1) {
-        allCells.splice(allCells.indexOf(nw), 1);
+      if (cellsNextToBombs.indexOf(nw) !== -1) {
+        cellsNextToBombs.splice(cellsNextToBombs.indexOf(nw), 1);
       }
-      allCells.splice(allCells.indexOf(w), 1);
-      if (allCells.indexOf(sw) !== -1) {
-        allCells.splice(allCells.indexOf(sw), 1);
+      cellsNextToBombs.splice(cellsNextToBombs.indexOf(w), 1);
+      if (cellsNextToBombs.indexOf(sw) !== -1) {
+        cellsNextToBombs.splice(cellsNextToBombs.indexOf(sw), 1);
       }
     }
   }
-  return allCells;
+  return cellsNextToBombs;
 }
 
 //adds 1 to adjacency value for each bomb a cell is touching
 var surroundingCells = function() {
   var touchCells = touch();
-  console.log(touchCells);
-  var array = [];
   for (i = 0; i < cellArray.length; i++) {
     for (j = 0; j < touchCells.length; j++) {
       if(cellArray[i].cellId === touchCells[j]) {
         cellArray[i].adjValue +=1;
-        array.push(cellArray[i]);
       }
     }
   }
-  return array;
 }
 
 //User Interface Logic
@@ -126,7 +123,6 @@ $(document).ready(function() {
 
   //Shows bomb counter
   $("#show-bomb-count").text(bombCount);
-
 
   //these two for loops make the grid
   for(var x = 0; x < base; x++) {
@@ -140,9 +136,9 @@ $(document).ready(function() {
 
   //gives each cell div an id of 0 incremented by 1
   function setIDs() {
-    var divs = document.getElementsByClassName('cell');
-    for(var p=0; p<divs.length; p++) {
-      divs[p].id = p;
+    var cells = document.getElementsByClassName('cell');
+    for(var p=0; p<cells.length; p++) {
+      cells[p].id = p;
     }
   }
   setIDs();
@@ -162,10 +158,11 @@ $(document).ready(function() {
   /////////////////////////////////////////////////////////////////////////////////////
 
   var south = function(thisPlaceholder) {
+    var clicked
     for (i = parseInt(thisPlaceholder); i < cellArray.length; i += base) {
-      console.log(i);
       if (cellArray[i].iterator === 0) {
         cellArray[i].iterator += 1;
+        clickExpander(i);
         clickExpander(i);
       }
       if ($("#" + i).hasClass("flag")) {
@@ -190,7 +187,10 @@ $(document).ready(function() {
       if (cellArray[i].iterator === 0) {
         cellArray[i].iterator += 1;
         clickExpander(i);
+        clickExpander(i);
       }
+      console.log(cellArray[i]);
+      console.log(cellArray[i].adjValue + " cellarray.adjvalue");
       if ($("#" + i).hasClass("flag")) {
         break;
       } else if (cellArray[i].adjValue === 0) {
@@ -212,6 +212,7 @@ $(document).ready(function() {
     for (i = parseInt(thisPlaceholder); i < cellArray.length; i++) {
       if (cellArray[i].iterator === 0) {
         cellArray[i].iterator += 1;
+        clickExpander(i);
         clickExpander(i);
       }
       if ($("#" + i).hasClass("flag")) {
@@ -236,6 +237,7 @@ $(document).ready(function() {
       if (cellArray[i].iterator === 0) {
         cellArray[i].iterator += 1;
         clickExpander(i);
+        clickExpander(i);
       }
       if ($("#" + i).hasClass("flag")) {
         break;
@@ -258,6 +260,7 @@ $(document).ready(function() {
     for (i = parseInt(thisPlaceholder); i < cellArray.length; i -= (base-1)) {
       if (cellArray[i].iterator === 0) {
         cellArray[i].iterator += 1;
+        clickExpander(i);
         clickExpander(i);
       }
       if ($("#" + i).hasClass("flag")) {
@@ -282,6 +285,7 @@ $(document).ready(function() {
       if (cellArray[i].iterator === 0) {
         cellArray[i].iterator += 1;
         clickExpander(i);
+        clickExpander(i);
       }
       if ($("#" + i).hasClass("flag")) {
         break;
@@ -304,6 +308,7 @@ $(document).ready(function() {
     for (i = parseInt(thisPlaceholder); i < cellArray.length; i += (base+1)) {
       if (cellArray[i].iterator === 0) {
         cellArray[i].iterator += 1;
+        clickExpander(i);
         clickExpander(i);
       }
       if ($("#" + i).hasClass("flag")) {
@@ -347,14 +352,21 @@ $(document).ready(function() {
   }
 
   var clickExpander = function(thisPlaceholder) {
-    south(thisPlaceholder);
-    north(thisPlaceholder);
-    east(thisPlaceholder);
-    west(thisPlaceholder);
-    northeast(thisPlaceholder);
-    northwest(thisPlaceholder);
-    southeast(thisPlaceholder);
-    southwest(thisPlaceholder);
+    debugger;
+    try {
+      south(thisPlaceholder);
+      east(thisPlaceholder);
+      north(thisPlaceholder);
+      west(thisPlaceholder);
+      northeast(thisPlaceholder);
+      northwest(thisPlaceholder);
+      southeast(thisPlaceholder);
+      southwest(thisPlaceholder);
+    }
+    catch(e) {
+      console.log("exception is " + e);
+      console.log("placeholder is " + thisPlaceholder)
+    }
   }
 
   //click listener
@@ -368,23 +380,22 @@ $(document).ready(function() {
         console.log($(this).attr("id"))
         //If you left-click on a bomb, they all show up and game over
         if ($(this).hasClass("has-bomb")){
-          $(".flag").removeClass("flag");
           $(".has-bomb").addClass("bomb-clicked");
+          $(".flag").removeClass("flag");
           stateOfGame = false;
           //If you left-click on a flag, nothing happens
         } else if ($(this).hasClass("flag")) {
           break;
           //If you click on an empty space, it gains class "clicked-on"
+          // $(this).addClass("clicked-on");
         } else {
-          //Down
+          //shows the adjacency value when a cell is clicked on
           if (cellArray[idValue].adjValue > 0) {
             $(this).addClass("clicked-on");
             $(this).text(cellArray[idValue].adjValue);
           } else {
             clickExpander($(this).attr("id"));
           }
-          // $(this).addClass("clicked-on");
-          //shows the adjacency value when a cell is clicked on
         }
         break;
 
