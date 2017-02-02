@@ -411,7 +411,7 @@ $(document).ready(function() {
             $(".flag").removeClass("flag");
             $(".has-bomb").addClass("bomb-clicked");
             $("#win-lose").show();
-            $("#win-lose").text("You lose!");
+            $("#win-lose").text("You lose");
             stateOfGame = false;
             //If you click on an empty space, it gains class "clicked-on"
           } else {
@@ -426,7 +426,7 @@ $(document).ready(function() {
           }
           if (cellArray.length - numberOfBombs === $(".clicked-on").length) {
             $("#win-lose").show();
-            $("#win-lose").text("You win!");
+            $("#win-lose").text("You win");
           }
 
           break;
