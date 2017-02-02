@@ -4,12 +4,53 @@
 }
 body {
   background-color: #5C2041;
+  background-image: url(../images/pink.jpg);
+}
+
+.jumbotron {
+  text-align: center;
+  color: white;
+  padding: 10em;
+  background-color: transparent;
 }
 
 .jumbotron h1 {
   font-family: "Minecrafter", "Courier New", monospace;
   font-size: 100px;
   text-shadow: 10px 10px rgba(26, 26, 26, 0.8);
+}
+
+#screen-overlay {
+  position: fixed;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.44);
+  width: 100%;
+  height: 100%;
+  /*display: none;*/
+}
+
+#play-mode {
+  font-size: 30px;
+  margin-left: 25%;
+  margin-right: 25%;
+  margin-top: 25%;
+  background-color: rgba(78, 38, 60, .35);;
+  text-align: center;
+  min-height: 30%;
+  border-radius: 5px;
+  padding: 30px;
+  z-index: 1001;
+  color: #fff;
+}
+
+button.levels {
+  margin: 15px auto;
+  margin-top: 15px;
+  font-family: 'Orbitron', sans-serif;
+  text-transform: uppercase;
+  background-color: #4e263c;
+  font-size: 25px;
+  padding-top: 16px;
 }
 
 .cell {
@@ -50,11 +91,4 @@ body {
 .minesweeper-game {
   margin-left: 23%;
   margin-top: 10%;
-}
-
-.jumbotron {
-  text-align: center;
-  background-image: url(../images/pink.jpg);
-  color: white;
-  padding: 10em;
 }
