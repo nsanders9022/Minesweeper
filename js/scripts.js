@@ -105,7 +105,6 @@ var touch = function() {
 //adds 1 to adjacency value for each bomb a cell is touching
 var surroundingCells = function() {
   var touchCells = touch();
-  console.log(touchCells);
   var array = [];
   for (i = 0; i < cellArray.length; i++) {
     for (j = 0; j < touchCells.length; j++) {
@@ -120,7 +119,7 @@ var surroundingCells = function() {
 
 //User Interface Logic
 $(document).ready(function() {
-  difficulty = parseInt(prompt("25, 36 or 81?"));
+  difficulty = 36;
   createObjects(difficulty);
   surroundingCells();
 
@@ -366,13 +365,13 @@ $(document).ready(function() {
         idValue = $(this).attr("id");
         console.log($(this).attr("id"))
         //If you left-click on a bomb, they all show up and game over
-        if ($(this).hasClass("has-bomb")){
+        if ($(this).hasClass("flag")){
+          break;
+          //If you left-click on a flag, nothing happens
+        } else if ($(this).hasClass("has-bomb")) {
           $(".flag").removeClass("flag");
           $(".has-bomb").addClass("bomb-clicked");
           stateOfGame = false;
-          //If you left-click on a flag, nothing happens
-        } else if ($(this).hasClass("flag")) {
-          break;
           //If you click on an empty space, it gains class "clicked-on"
         } else {
           //Down
