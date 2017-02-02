@@ -14,7 +14,7 @@ body {
   background-color: rgba(0, 0, 0, 0.44);
   width: 100%;
   height: 100%;
-  /*display: none;*/
+  display: none;
 }
 
 #play-mode {
@@ -28,6 +28,7 @@ body {
   padding: 30px;
   z-index: 1001;
   color: #fff;
+  display: none;
 }
 
 .jumbotron {
@@ -46,11 +47,24 @@ body {
 }
 
 #final {
-  display: none;
+  /*display: none;*/
 }
 
 .container {
-  display: none;
+  /*display: none;*/
+  border: 1px solid green;
+  padding: 0px;
+  width: 70%;
+  position: relative;
+}
+
+.minesweeper-game {
+  display: inline-block;
+  margin: 0 auto;
+  border: 1px solid blue;
+  position: absolute;
+  left: 50%;
+  top: 50%;
 }
 
 button.levels {
@@ -62,13 +76,13 @@ button.levels {
   font-size: 25px;
   padding-top: 16px;
 }
-
+/*
 .cell {
   border: 1px solid black;
   height: 30px;
   width: 30px;
   float:left;
-}
+}*/
 
 .clicked-on {
   background-color: #ADD8E6;
@@ -91,14 +105,9 @@ button.levels {
 
 .cell {
   border: 1px solid #ddd;
-  width: 80px;
-  height: 80px;
+  width: 30px;
+  height: 30px;
   display: inline-block;
-  margin: 1px;
+  /*margin: 1px;*/
   vertical-align: top;
-}
-
-.minesweeper-game {
-  margin-left: 23%;
-  margin-top: 10%;
 }

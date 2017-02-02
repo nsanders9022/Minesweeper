@@ -13,6 +13,16 @@ function Cell(bomb, id) {
   this.iterator = 0;
 }
 
+//Object constructor for difficulty levels
+function Level(cells, bombs) {
+  this.cellCount = cells;
+  this.bombs = bombs;
+}
+
+var beginner = new Level(81, 10);
+var intermediate = new Level(256, 40);
+var expert = new Level(480, 99);
+
 //function to create new Cell objects
 var createObjects = function(userNumber) {
   for (q = 0; q < userNumber; q++) {
