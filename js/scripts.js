@@ -256,10 +256,10 @@ $(document).ready(function() {
 
   var northeast = function(thisPlaceholder) {
     for (i = parseInt(thisPlaceholder); i < cellArray.length; i -= (base-1)) {
-      // if (cellArray[i].iterator === 0) {
-      //   cellArray[i].iterator += 1;
-      //   clickExpander(i);
-      // }
+      if (cellArray[i].iterator === 0) {
+        cellArray[i].iterator += 1;
+        clickExpander(i);
+      }
       if ($("#" + i).hasClass("flag")) {
         break;
       } else if (cellArray[i].adjValue === 0) {
@@ -267,8 +267,7 @@ $(document).ready(function() {
           $("#" + i).addClass("clicked-on");
           break;
         } else{
-          // $("#" + i).addClass("clicked-on");
-          break;
+          $("#" + i).addClass("clicked-on");
         }
       } else {
         $("#" + i).addClass("clicked-on");
@@ -280,10 +279,10 @@ $(document).ready(function() {
 
   var northwest = function(thisPlaceholder) {
     for (i = parseInt(thisPlaceholder); i < cellArray.length; i -= (base+1)) {
-      // if (cellArray[i].iterator === 0) {
-      //   cellArray[i].iterator += 1;
-      //   clickExpander(i);
-      // }
+      if (cellArray[i].iterator === 0) {
+        cellArray[i].iterator += 1;
+        clickExpander(i);
+      }
       if ($("#" + i).hasClass("flag")) {
         break;
       } else if (cellArray[i].adjValue === 0) {
@@ -291,8 +290,7 @@ $(document).ready(function() {
           $("#" + i).addClass("clicked-on");
           break;
         } else{
-          // $("#" + i).addClass("clicked-on");
-          break;
+          $("#" + i).addClass("clicked-on");
         }
       } else {
         $("#" + i).addClass("clicked-on");
@@ -304,10 +302,10 @@ $(document).ready(function() {
 
   var southeast = function(thisPlaceholder) {
     for (i = parseInt(thisPlaceholder); i < cellArray.length; i += (base+1)) {
-      // if (cellArray[i].iterator === 0) {
-      //   cellArray[i].iterator += 1;
-      //   clickExpander(i);
-      // }
+      if (cellArray[i].iterator === 0) {
+        cellArray[i].iterator += 1;
+        clickExpander(i);
+      }
       if ($("#" + i).hasClass("flag")) {
         break;
       } else if (cellArray[i].adjValue === 0) {
@@ -315,8 +313,7 @@ $(document).ready(function() {
           $("#" + i).addClass("clicked-on");
           break;
         } else{
-          // $("#" + i).addClass("clicked-on");
-          break;
+          $("#" + i).addClass("clicked-on");
         }
       } else {
         $("#" + i).addClass("clicked-on");
@@ -328,18 +325,18 @@ $(document).ready(function() {
 
   var southwest = function (thisPlaceholder) {
     for (i = parseInt(thisPlaceholder); i < cellArray.length; i += (base-1)) {
-      // if (cellArray[i].iterator === 0) {
-      //   cellArray[i].iterator += 1;
-      //   clickExpander(i);
-      // }
+      if (cellArray[i].iterator === 0) {
+        cellArray[i].iterator += 1;
+        clickExpander(i);
+      }
       if ($("#" + i).hasClass("flag")) {
         break;
       } else if (cellArray[i].adjValue === 0) {
         if ((cellArray[i].cellId % base >= base * (base-1)) || (cellArray[i].cellId % base === 0)) {
           $("#" + i).addClass("clicked-on");
           break;
-        } else{
-          break;
+        } else {
+          $("#" + i).addClass("clicked-on");
         }
       } else {
         $("#" + i).addClass("clicked-on");
