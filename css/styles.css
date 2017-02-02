@@ -37,12 +37,13 @@ body {
   z-index: 1000;
 }
 
-.jumbotron h1 {
+.jumbotron h1, #win-lose {
   font-family: "Minecrafter", "Courier New", monospace;
   font-size: 100px;
   text-shadow: 10px 10px rgba(26, 26, 26, 0.8);
   z-index: 1000;
 }
+
 
 #final {
   display: none;
@@ -127,4 +128,21 @@ button.levels {
 
 .clicked-on {
   background-color: #4B3252;
+}
+
+.bomb-count {
+    font-family: 'Orbitron', sans-serif;
+    color: white;
+    font-size: 24px;
+
+}
+
+#win-lose {
+  display: none;
+  text-align: center;
+  font-family: "Minecrafter", "Courier New", monospace;
+  font-size: 72px;
+  text-shadow: 10px 10px rgba(26, 26, 26, 0.8);
+  z-index: 1000;
+  color: white;
 }

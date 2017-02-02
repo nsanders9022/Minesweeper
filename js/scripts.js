@@ -136,7 +136,7 @@ $(document).ready(function() {
     $("#screen-overlay").hide();
     $(".container").show();
     $("#final").show();
-    $(".minesweeper-game").addClass("beginner");
+    $(".minesweeper-game, .bomb-count").addClass("beginner");
   })
 
   $("#intermediate").click(function(){
@@ -144,7 +144,7 @@ $(document).ready(function() {
     $("#screen-overlay").hide();
     $(".container").show();
     $("#final").show();
-        $(".minesweeper-game").addClass("intermediate");
+        $(".minesweeper-game, .bomb-count").addClass("intermediate");
   })
 
   $("#expert").click(function(){
@@ -152,7 +152,7 @@ $(document).ready(function() {
     $("#screen-overlay").hide();
     $(".container").show();
     $("#final").show();
-        $(".minesweeper-game").addClass("expert");
+        $(".minesweeper-game, .bomb-count").addClass("expert");
   })
 
   var createGame = function(mode) {
