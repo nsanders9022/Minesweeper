@@ -65,15 +65,15 @@ body {
 }
 
 .beginner {
-    margin: -90px 0 0 -90px;
+    margin: 0px 0 0 -35%;
 }
 
 .intermediate {
-  margin: -240px 0 0 -240px;
+  margin: 0px 0 0 -35%;
 }
 
 .expert {
-  margin: -450px 0 0 -450px;
+  margin: 0px 0 0 -35%;
 }
 
 button.levels {

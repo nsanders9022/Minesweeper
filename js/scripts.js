@@ -25,7 +25,6 @@ var expert = new Level(480, 99);
 
 //function to create new Cell objects
 var createObjects = function(userNumber) {
-  debugger;
   for (q = 0; q < userNumber; q++) {
     var newCell = new Cell(false, q);
     cellArray.push(newCell);
@@ -35,7 +34,6 @@ var createObjects = function(userNumber) {
 
 //creates random numbers for bomb objects' cell ids
 function getRandomBombs() {
-  debugger;
   var randomNumbers = [];
   // numberOfBombs = Math.round(cellArray.length / 6);
   bombCount = numberOfBombs;
@@ -50,7 +48,6 @@ function getRandomBombs() {
 
 //changes isBomb to true for objects with cellId equal to random number
 var bombCells = function() {
-  debugger;
   var randomBombs = getRandomBombs();
   for (k = 0; k < randomBombs.length; k++) {
     for (n = 0; n < cellArray.length; n++) {
@@ -64,7 +61,6 @@ var bombCells = function() {
 
 //Sets adjacency values
 var touch = function() {
-  debugger;
   var bId = bombCells();
   var allCells = [];
   for (l = 0; l < bId.length; l++) {
@@ -119,7 +115,6 @@ var touch = function() {
 
 //adds 1 to adjacency value for each bomb a cell is touching
 var surroundingCells = function() {
-  debugger;
   var touchCells = touch();
   var array = [];
   for (i = 0; i < cellArray.length; i++) {
@@ -141,18 +136,26 @@ $(document).ready(function() {
     $("#screen-overlay").hide();
     $(".container").show();
     $("#final").show();
+    $(".minesweeper-game").addClass("beginner");
   })
 
   $("#intermediate").click(function(){
-
+    createGame(intermediate);
+    $("#screen-overlay").hide();
+    $(".container").show();
+    $("#final").show();
+        $(".minesweeper-game").addClass("intermediate");
   })
 
   $("#expert").click(function(){
-
+    createGame(expert);
+    $("#screen-overlay").hide();
+    $(".container").show();
+    $("#final").show();
+        $(".minesweeper-game").addClass("expert");
   })
 
   var createGame = function(mode) {
-    debugger;
     numberOfBombs = mode.bombs;
     difficulty = mode.cellCount;
     createObjects(difficulty);
