@@ -202,7 +202,6 @@ $(document).ready(function() {
     /////////////////////////////////////////////////////////////////////////////////////
     var south = function(thisPlaceholder) {
       for (i = parseInt(thisPlaceholder); i < cellArray.length; i += base) {
-        console.log(i);
         if (cellArray[i].iterator === 0) {
           cellArray[i].iterator += 1;
           clickExpander(i);
@@ -404,7 +403,6 @@ $(document).ready(function() {
           //On left click
           case 1:
           idValue = $(this).attr("id");
-          console.log($(this).attr("id"))
           //If you left-click on a bomb, they all show up and game over
           if ($(this).hasClass("flag")){
             break;
@@ -412,6 +410,8 @@ $(document).ready(function() {
           } else if ($(this).hasClass("has-bomb")) {
             $(".flag").removeClass("flag");
             $(".has-bomb").addClass("bomb-clicked");
+            $("#win-lose").show();
+            $("#win-lose").text("You lose!");
             stateOfGame = false;
             //If you click on an empty space, it gains class "clicked-on"
           } else {
@@ -424,6 +424,11 @@ $(document).ready(function() {
               clickExpander($(this).attr("id"));
             }
           }
+          if (cellArray.length - numberOfBombs === $(".clicked-on").length) {
+            $("#win-lose").show();
+            $("#win-lose").text("You win!");
+          }
+
           break;
 
           //On Right click
