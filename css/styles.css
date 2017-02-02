@@ -52,28 +52,27 @@ body {
   display: none;
   border: 1px solid green;
   padding: 0px;
-  width: 70%;
+  width: 901px;
+  margin-top: -7%;
   position: relative;
 }
 
 .minesweeper-game {
   display: inline-block;
-  border: 1px solid blue;
-  position: absolute;
-  left: 50%;
-  top: 50%;
+  /*border: 1px solid blue;*/
 }
 
 .beginner {
-    margin: 0px 0 0 -35%;
+    margin: 0 314px;
 }
 
 .intermediate {
-  margin: 0px 0 0 -35%;
+  margin: 0 209px;
 }
 
 .expert {
-  margin: 0px 0 0 -35%;
+  margin: 0 119px;
+
 }
 
 button.levels {
@@ -105,7 +104,8 @@ button.levels {
 .flag {
   background-image: url(../images/flag.png);
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: auto;
+  background-position: center;
 }
 
 .row {
@@ -113,10 +113,16 @@ button.levels {
 }
 
 .cell {
-  border: 1px solid #ddd;
+  border: 1px solid #321c40;
+  background-color: rgb(98, 33, 63);
   width: 30px;
   height: 30px;
   display: inline-block;
+  padding-top: 2px;
   /*margin: 1px;*/
   vertical-align: top;
+  color: white;
+  font-size: 20px;
+  text-align: center;
+  font-family: 'Orbitron', sans-serif;
 }

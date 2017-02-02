@@ -21,7 +21,7 @@ function Level(cells, bombs) {
 
 var beginner = new Level(81, 10);
 var intermediate = new Level(256, 40);
-var expert = new Level(480, 99);
+var expert = new Level(484, 99);
 
 //function to create new Cell objects
 var createObjects = function(userNumber) {
