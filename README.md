@@ -27,10 +27,6 @@ _After selecting a difficulty level, the player clicks on squares. Squares that 
 
 * _The recursive function is not called on cells that already contain an adjacency value of 1; therefore, cells that should be displayed are not always displayed._
 
-* _There is no restart button. The player must refresh the page to play a new game._
-
-* _The difficulty buttons are not functional._
-
 ## Support and contact details
 
 _Contact Team Minesweeper at 123-456-7890_
