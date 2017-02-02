@@ -156,228 +156,46 @@ $(document).ready(function() {
     return false;
   });
   /////////////////////////////////////////////////////////////////////////////////////
-
-  var south = function(thisPlaceholder) {
-    var clicked
-    for (i = parseInt(thisPlaceholder); i < cellArray.length; i += base) {
-      if (cellArray[i].iterator === 0) {
-        cellArray[i].iterator += 1;
-        clickExpander(i);
-        clickExpander(i);
-      }
-      if ($("#" + i).hasClass("flag")) {
-        break;
-      } else if (cellArray[i].adjValue === 0)  {
-        if (cellArray[i].cellId >= base * (base-1)) {
-          $("#" + i).addClass("clicked-on");
-          break;
-        } else {
-          $("#" + i).addClass("clicked-on");
-        }
-      } else {
-        $("#" + i).addClass("clicked-on");
-        $("#" + i).text(cellArray[i].adjValue);
-        break;
-      }
+  var clickExpander = function(clicked) {
+    if (cellArray[clicked].adjValue === 0) {
+      console.log("zero");
     }
   }
 
-  var north = function(thisPlaceholder) {
-    for (i = parseInt(thisPlaceholder); i < cellArray.length; i -= base) {
-      if (cellArray[i].iterator === 0) {
-        cellArray[i].iterator += 1;
-        clickExpander(i);
-        clickExpander(i);
-      }
-      console.log(cellArray[i]);
-      console.log(cellArray[i].adjValue + " cellarray.adjvalue");
-      if ($("#" + i).hasClass("flag")) {
-        break;
-      } else if (cellArray[i].adjValue === 0) {
-        if (cellArray[i].cellId < base) {
-          $("#" + i).addClass("clicked-on");
-          break;
-        } else {
-          $("#" + i).addClass("clicked-on");
-        }
-      } else {
-        $("#" + i).addClass("clicked-on");
-        $("#" + i).text(cellArray[i].adjValue);
-        break;
-      }
-    }
-  }
-
-  var east = function(thisPlaceholder) {
-    for (i = parseInt(thisPlaceholder); i < cellArray.length; i++) {
-      if (cellArray[i].iterator === 0) {
-        cellArray[i].iterator += 1;
-        clickExpander(i);
-        clickExpander(i);
-      }
-      if ($("#" + i).hasClass("flag")) {
-        break;
-      } else if (cellArray[i].adjValue === 0) {
-        if (cellArray[i].cellId % base === base - 1 && cellArray[i].cellId < base * base) {
-          $("#" + i).addClass("clicked-on");
-          break;
-        } else {
-          $("#" + i).addClass("clicked-on");
-        }
-      } else {
-        $("#" + i).addClass("clicked-on");
-        $("#" + i).text(cellArray[i].adjValue);
-        break;
-      }
-    }
-  }
-
-  var west = function(thisPlaceholder) {
-    for (i = parseInt(thisPlaceholder); i < cellArray.length; i--) {
-      if (cellArray[i].iterator === 0) {
-        cellArray[i].iterator += 1;
-        clickExpander(i);
-        clickExpander(i);
-      }
-      if ($("#" + i).hasClass("flag")) {
-        break;
-      } else if (cellArray[i].adjValue === 0) {
-        if (cellArray[i].cellId % base === 0) {
-          $("#" + i).addClass("clicked-on");
-          break;
-        } else {
-          $("#" + i).addClass("clicked-on");
-        }
-      } else {
-        $("#" + i).addClass("clicked-on");
-        $("#" + i).text(cellArray[i].adjValue);
-        break;
-      }
-    }
-  }
-
-  var northeast = function(thisPlaceholder) {
-    for (i = parseInt(thisPlaceholder); i < cellArray.length; i -= (base-1)) {
-      if (cellArray[i].iterator === 0) {
-        cellArray[i].iterator += 1;
-        clickExpander(i);
-        clickExpander(i);
-      }
-      if ($("#" + i).hasClass("flag")) {
-        break;
-      } else if (cellArray[i].adjValue === 0) {
-        if ((cellArray[i].cellId % base === base - 1)||(cellArray[i].cellId < base)) {
-          $("#" + i).addClass("clicked-on");
-          break;
-        } else{
-          $("#" + i).addClass("clicked-on");
-        }
-      } else {
-        $("#" + i).addClass("clicked-on");
-        $("#" + i).text(cellArray[i].adjValue);
-        break;
-      }
-    }
-  }
-
-  var northwest = function(thisPlaceholder) {
-    for (i = parseInt(thisPlaceholder); i < cellArray.length; i -= (base+1)) {
-      if (cellArray[i].iterator === 0) {
-        cellArray[i].iterator += 1;
-        clickExpander(i);
-        clickExpander(i);
-      }
-      if ($("#" + i).hasClass("flag")) {
-        break;
-      } else if (cellArray[i].adjValue === 0) {
-        if ((cellArray[i].cellId % base === 0)||(cellArray[i].cellId < base)) {
-          $("#" + i).addClass("clicked-on");
-          break;
-        } else{
-          $("#" + i).addClass("clicked-on");
-        }
-      } else {
-        $("#" + i).addClass("clicked-on");
-        $("#" + i).text(cellArray[i].adjValue);
-        break;
-      }
-    }
-  }
-
-  var southeast = function(thisPlaceholder) {
-    for (i = parseInt(thisPlaceholder); i < cellArray.length; i += (base+1)) {
-      if (cellArray[i].iterator === 0) {
-        cellArray[i].iterator += 1;
-        clickExpander(i);
-        clickExpander(i);
-      }
-      if ($("#" + i).hasClass("flag")) {
-        break;
-      } else if (cellArray[i].adjValue === 0) {
-        if ((cellArray[i].cellId % base === base - 1)||(cellArray[i].cellId >= base * (base-1))) {
-          $("#" + i).addClass("clicked-on");
-          break;
-        } else{
-          $("#" + i).addClass("clicked-on");
-        }
-      } else {
-        $("#" + i).addClass("clicked-on");
-        $("#" + i).text(cellArray[i].adjValue);
-        break;
-      }
-    }
-  }
-
-  var southwest = function (thisPlaceholder) {
-    for (i = parseInt(thisPlaceholder); i < cellArray.length; i += (base-1)) {
-      if (cellArray[i].iterator === 0) {
-        cellArray[i].iterator += 1;
-        clickExpander(i);
-      }
-      if ($("#" + i).hasClass("flag")) {
-        break;
-      } else if (cellArray[i].adjValue === 0) {
-        if ((cellArray[i].cellId % base >= base * (base-1)) || (cellArray[i].cellId % base === 0)) {
-          $("#" + i).addClass("clicked-on");
-          break;
-        } else {
-          $("#" + i).addClass("clicked-on");
-        }
-      } else {
-        $("#" + i).addClass("clicked-on");
-        $("#" + i).text(cellArray[i].adjValue);
-        break;
-      }
-    }
-  }
-
-  var clickExpander = function(thisPlaceholder) {
-    debugger;
-    try {
-      south(thisPlaceholder);
-      east(thisPlaceholder);
-      north(thisPlaceholder);
-      west(thisPlaceholder);
-      northeast(thisPlaceholder);
-      northwest(thisPlaceholder);
-      southeast(thisPlaceholder);
-      southwest(thisPlaceholder);
-    }
-    catch(e) {
-      console.log("exception is " + e);
-      console.log("placeholder is " + thisPlaceholder)
-    }
-  }
+  // var south = function(thisPlaceholder) {
+  //   var clicked
+  //   for (i = parseInt(thisPlaceholder); i < cellArray.length; i += base) {
+  //     if (cellArray[i].iterator <9) {
+  //       cellArray[i].iterator += 1;
+  //       clickExpander(i);
+  //       clickExpander(i);
+  //     }
+  //     if ($("#" + i).hasClass("flag")) {
+  //       break;
+  //     } else if (cellArray[i].adjValue === 0)  {
+  //       if (cellArray[i].cellId >= base * (base-1)) {
+  //         $("#" + i).addClass("clicked-on");
+  //         break;
+  //       } else {
+  //         $("#" + i).addClass("clicked-on");
+  //       }
+  //     } else {
+  //       $("#" + i).addClass("clicked-on");
+  //       $("#" + i).text(cellArray[i].adjValue);
+  //       break;
+  //     }
+  //   }
+  // }
 
   //click listener
   $(".cell").mousedown(function(event) {
+    idValue = parseInt($(this).attr("id"));
     if (stateOfGame === true) {
       switch (event.which) {
 
         //On left click
         case 1:
-        idValue = $(this).attr("id");
-        console.log($(this).attr("id"))
+        clickExpander(idValue);
         //If you left-click on a bomb, they all show up and game over
         if ($(this).hasClass("has-bomb")){
           $(".has-bomb").addClass("bomb-clicked");
@@ -394,7 +212,7 @@ $(document).ready(function() {
             $(this).addClass("clicked-on");
             $(this).text(cellArray[idValue].adjValue);
           } else {
-            clickExpander($(this).attr("id"));
+            clickExpander(idValue);
           }
         }
         break;
@@ -417,3 +235,194 @@ $(document).ready(function() {
     }
   });
 });
+
+
+
+
+//
+// var north = function(thisPlaceholder) {
+//   for (i = parseInt(thisPlaceholder); i < cellArray.length; i -= base) {
+//     if (cellArray[i].iterator <9) {
+//       cellArray[i].iterator += 1;
+//       clickExpander(i);
+//       clickExpander(i);
+//     }
+//     console.log(cellArray[i]);
+//     console.log(cellArray[i].adjValue + " cellarray.adjvalue");
+//     if ($("#" + i).hasClass("flag")) {
+//       break;
+//     } else if (cellArray[i].adjValue === 0) {
+//       if (cellArray[i].cellId < base) {
+//         $("#" + i).addClass("clicked-on");
+//         break;
+//       } else {
+//         $("#" + i).addClass("clicked-on");
+//       }
+//     } else {
+//       $("#" + i).addClass("clicked-on");
+//       $("#" + i).text(cellArray[i].adjValue);
+//       break;
+//     }
+//   }
+// }
+//
+// var east = function(thisPlaceholder) {
+//   for (i = parseInt(thisPlaceholder); i < cellArray.length; i++) {
+//     if (cellArray[i].iterator <9) {
+//       cellArray[i].iterator += 1;
+//       clickExpander(i);
+//       clickExpander(i);
+//     }
+//     if ($("#" + i).hasClass("flag")) {
+//       break;
+//     } else if (cellArray[i].adjValue === 0) {
+//       if (cellArray[i].cellId % base === base - 1 && cellArray[i].cellId < base * base) {
+//         $("#" + i).addClass("clicked-on");
+//         break;
+//       } else {
+//         $("#" + i).addClass("clicked-on");
+//       }
+//     } else {
+//       $("#" + i).addClass("clicked-on");
+//       $("#" + i).text(cellArray[i].adjValue);
+//       break;
+//     }
+//   }
+// }
+//
+// var west = function(thisPlaceholder) {
+//   for (i = parseInt(thisPlaceholder); i < cellArray.length; i--) {
+//     if (cellArray[i].iterator <9) {
+//       cellArray[i].iterator += 1;
+//       clickExpander(i);
+//       clickExpander(i);
+//     }
+//     if ($("#" + i).hasClass("flag")) {
+//       break;
+//     } else if (cellArray[i].adjValue === 0) {
+//       if (cellArray[i].cellId % base === 0) {
+//         $("#" + i).addClass("clicked-on");
+//         break;
+//       } else {
+//         $("#" + i).addClass("clicked-on");
+//       }
+//     } else {
+//       $("#" + i).addClass("clicked-on");
+//       $("#" + i).text(cellArray[i].adjValue);
+//       break;
+//     }
+//   }
+// }
+//
+// var northeast = function(thisPlaceholder) {
+//   for (i = parseInt(thisPlaceholder); i < cellArray.length; i -= (base-1)) {
+//     if (cellArray[i].iterator <9) {
+//       cellArray[i].iterator += 1;
+//       clickExpander(i);
+//       clickExpander(i);
+//     }
+//     if ($("#" + i).hasClass("flag")) {
+//       break;
+//     } else if (cellArray[i].adjValue === 0) {
+//       if ((cellArray[i].cellId % base === base - 1)||(cellArray[i].cellId < base)) {
+//         $("#" + i).addClass("clicked-on");
+//         break;
+//       } else{
+//         $("#" + i).addClass("clicked-on");
+//       }
+//     } else {
+//       $("#" + i).addClass("clicked-on");
+//       $("#" + i).text(cellArray[i].adjValue);
+//       break;
+//     }
+//   }
+// }
+//
+// var northwest = function(thisPlaceholder) {
+//   for (i = parseInt(thisPlaceholder); i < cellArray.length; i -= (base+1)) {
+//     if (cellArray[i].iterator <9) {
+//       cellArray[i].iterator += 1;
+//       clickExpander(i);
+//       clickExpander(i);
+//     }
+//     if ($("#" + i).hasClass("flag")) {
+//       break;
+//     } else if (cellArray[i].adjValue === 0) {
+//       if ((cellArray[i].cellId % base === 0)||(cellArray[i].cellId < base)) {
+//         $("#" + i).addClass("clicked-on");
+//         break;
+//       } else{
+//         $("#" + i).addClass("clicked-on");
+//       }
+//     } else {
+//       $("#" + i).addClass("clicked-on");
+//       $("#" + i).text(cellArray[i].adjValue);
+//       break;
+//     }
+//   }
+// }
+//
+// var southeast = function(thisPlaceholder) {
+//   for (i = parseInt(thisPlaceholder); i < cellArray.length; i += (base+1)) {
+//     if (cellArray[i].iterator <9) {
+//       cellArray[i].iterator += 1;
+//       clickExpander(i);
+//       clickExpander(i);
+//     }
+//     if ($("#" + i).hasClass("flag")) {
+//       break;
+//     } else if (cellArray[i].adjValue === 0) {
+//       if ((cellArray[i].cellId % base === base - 1)||(cellArray[i].cellId >= base * (base-1))) {
+//         $("#" + i).addClass("clicked-on");
+//         break;
+//       } else{
+//         $("#" + i).addClass("clicked-on");
+//       }
+//     } else {
+//       $("#" + i).addClass("clicked-on");
+//       $("#" + i).text(cellArray[i].adjValue);
+//       break;
+//     }
+//   }
+// }
+//
+// var southwest = function (thisPlaceholder) {
+//   for (i = parseInt(thisPlaceholder); i < cellArray.length; i += (base-1)) {
+//     if (cellArray[i].iterator <9) {
+//       cellArray[i].iterator += 1;
+//       clickExpander(i);
+//       clickExpander(i);
+//     }
+//     if ($("#" + i).hasClass("flag")) {
+//       break;
+//     } else if (cellArray[i].adjValue === 0) {
+//       if ((cellArray[i].cellId % base >= base * (base-1)) || (cellArray[i].cellId % base === 0)) {
+//         $("#" + i).addClass("clicked-on");
+//         break;
+//       } else {
+//         $("#" + i).addClass("clicked-on");
+//       }
+//     } else {
+//       $("#" + i).addClass("clicked-on");
+//       $("#" + i).text(cellArray[i].adjValue);
+//       break;
+//     }
+//   }
+// }
+//
+// var clickExpander = function(thisPlaceholder) {
+//   try {
+//     south(thisPlaceholder);
+//     east(thisPlaceholder);
+//     north(thisPlaceholder);
+//     west(thisPlaceholder);
+//     northeast(thisPlaceholder);
+//     northwest(thisPlaceholder);
+//     southeast(thisPlaceholder);
+//     southwest(thisPlaceholder);
+//   }
+//   catch(e) {
+//     console.log("exception is " + e);
+//     console.log("placeholder is " + thisPlaceholder)
+//   }
+// }
