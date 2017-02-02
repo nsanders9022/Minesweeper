@@ -13,57 +13,6 @@ function Cell(bomb, id) {
   this.iterator = 0;
 }
 
-Cell.prototype.neighborhood = function() {
-  var neighbors = [];
-    var cell = this.cellId;
-    var base = Math.sqrt(this.gridSize);
-    var nw = cell - (base + 1);
-    var n = cell - base;
-    var ne = cell - (base - 1);
-    var w = cell - 1;
-    var e = cell + 1;
-    var sw = cell + (base - 1);
-    var s = cell + base;
-    var se = cell + (base + 1);
-    neighbors.push(nw);
-    neighbors.push(n);
-    neighbors.push(ne);
-    neighbors.push(w);
-    neighbors.push(e);
-    neighbors.push(sw);
-    neighbors.push(s);
-    neighbors.push(se);
-    if (cell < base) {
-      neighbors.splice(neighbors.indexOf(nw), 1);
-      neighbors.splice(neighbors.indexOf(n), 1);
-      neighbors.splice(neighbors.indexOf(ne), 1);
-    }
-    if (cell >= base * (base - 1)) {
-      neighbors.splice(neighbors.indexOf(sw), 1);
-      neighbors.splice(neighbors.indexOf(s), 1);
-      neighbors.splice(neighbors.indexOf(se), 1);
-    }
-    if (cell % base === base - 1) {
-      if (neighbors.indexOf(ne) !== -1) {
-        neighbors.splice(neighbors.indexOf(ne), 1);
-      }
-      neighbors.splice(neighbors.indexOf(e), 1);
-      if (neighbors.indexOf(se) !== -1) {
-        neighbors.splice(neighbors.indexOf(se), 1);
-      }
-    }
-    if (cell % base === 0) {
-      if (neighbors.indexOf(nw) !== -1) {
-        neighbors.splice(neighbors.indexOf(nw), 1);
-      }
-      neighbors.splice(neighbors.indexOf(w), 1);
-      if (neighbors.indexOf(sw) !== -1) {
-        neighbors.splice(neighbors.indexOf(sw), 1);
-      }
-    }
-    return neighbors;
-  }
-
 //function to create new Cell objects
 var createObjects = function(userNumber) {
   for (q = 0; q < userNumber; q++) {
