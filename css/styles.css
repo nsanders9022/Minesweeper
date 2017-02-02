@@ -60,6 +60,7 @@ body {
 
 .minesweeper-game {
   display: inline-block;
+  box-shadow: 8px 8px rgba(26, 26, 26, 0.7);
   /*border: 1px solid blue;*/
 }
 
@@ -101,7 +102,7 @@ button.levels {
 }
 
 .flag {
-  background-image: url(../images/flag.png);
+  background-image: url(../images/flagor.png);
   background-repeat: no-repeat;
   background-size: auto;
   background-position: center;
@@ -134,7 +135,6 @@ button.levels {
     font-family: 'Orbitron', sans-serif;
     color: white;
     font-size: 24px;
-
 }
 
 #win-lose {
