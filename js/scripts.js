@@ -51,8 +51,8 @@ var bombCells = function() {
 
 //creates an array full of cell id numbers that are next to bombs
 var touch = function() {
-  var bId = bombCells();
   var cellsNextToBombs = [];
+  var bId = bombCells();
   for (l = 0; l < bId.length; l++) {
     var z = bId[l];
     var nw = z - (base + 1);
@@ -157,9 +157,7 @@ $(document).ready(function() {
   });
   /////////////////////////////////////////////////////////////////////////////////////
   var clickExpander = function(clicked) {
-    if (cellArray[clicked].adjValue === 0) {
-      console.log("zero");
-    }
+    console.log(cellArray[clicked].adjValue);
   }
 
   // var south = function(thisPlaceholder) {
