@@ -13,6 +13,56 @@ function Cell(bomb, id) {
   this.iterator = 0;
 }
 
+Cell.prototype.neighborhood = function() {
+  var neighbors = [];
+    var cell = this.cellId;
+    var nw = cell - (base + 1);
+    var n = cell - base;
+    var ne = cell - (base - 1);
+    var w = cell - 1;
+    var e = cell + 1;
+    var sw = cell + (base - 1);
+    var s = cell + base;
+    var se = cell + (base + 1);
+    neighbors.push(nw);
+    neighbors.push(n);
+    neighbors.push(ne);
+    neighbors.push(w);
+    neighbors.push(e);
+    neighbors.push(sw);
+    neighbors.push(s);
+    neighbors.push(se);
+    if (cell < base) {
+      neighbors.splice(neighbors.indexOf(nw), 1);
+      neighbors.splice(neighbors.indexOf(n), 1);
+      neighbors.splice(neighbors.indexOf(ne), 1);
+    }
+    if (cell >= base * (base - 1)) {
+      neighbors.splice(neighbors.indexOf(sw), 1);
+      neighbors.splice(neighbors.indexOf(s), 1);
+      neighbors.splice(neighbors.indexOf(se), 1);
+    }
+    if (cell % base === base - 1) {
+      if (neighbors.indexOf(ne) !== -1) {
+        neighbors.splice(neighbors.indexOf(ne), 1);
+      }
+      neighbors.splice(neighbors.indexOf(e), 1);
+      if (neighbors.indexOf(se) !== -1) {
+        neighbors.splice(neighbors.indexOf(se), 1);
+      }
+    }
+    if (cell % base === 0) {
+      if (neighbors.indexOf(nw) !== -1) {
+        neighbors.splice(neighbors.indexOf(nw), 1);
+      }
+      neighbors.splice(neighbors.indexOf(w), 1);
+      if (neighbors.indexOf(sw) !== -1) {
+        neighbors.splice(neighbors.indexOf(sw), 1);
+      }
+    }
+    return neighbors;
+  }
+
 //Object constructor for difficulty levels
 function Level(cells, bombs) {
   this.cellCount = cells;
@@ -59,58 +109,18 @@ var bombCells = function() {
   return randomBombs;
 }
 
-//Sets adjacency values
+//Finds cell ids of each of the cells neighboring a bomb
 var touch = function() {
   var bId = bombCells();
-  var allCells = [];
+  var bombNeighbors = [];
   for (l = 0; l < bId.length; l++) {
-    var z = bId[l];
-    var nw = z - (base + 1);
-    var n = z - base;
-    var ne = z - (base - 1);
-    var w = z - 1;
-    var e = z + 1;
-    var sw = z + (base - 1);
-    var s = z + base;
-    var se = z + (base + 1);
-    allCells.push(nw);
-    allCells.push(n);
-    allCells.push(ne);
-    allCells.push(w);
-    allCells.push(e);
-    allCells.push(sw);
-    allCells.push(s);
-    allCells.push(se);
-    if (z < base) {
-      allCells.splice(allCells.indexOf(nw), 1);
-      allCells.splice(allCells.indexOf(n), 1);
-      allCells.splice(allCells.indexOf(ne), 1);
-    }
-    if (z >= base * (base - 1)) {
-      allCells.splice(allCells.indexOf(sw), 1);
-      allCells.splice(allCells.indexOf(s), 1);
-      allCells.splice(allCells.indexOf(se), 1);
-    }
-    if (z % base === base - 1) {
-      if (allCells.indexOf(ne) !== -1) {
-        allCells.splice(allCells.indexOf(ne), 1);
-      }
-      allCells.splice(allCells.indexOf(e), 1);
-      if (allCells.indexOf(se) !== -1) {
-        allCells.splice(allCells.indexOf(se), 1);
-      }
-    }
-    if (z % base === 0) {
-      if (allCells.indexOf(nw) !== -1) {
-        allCells.splice(allCells.indexOf(nw), 1);
-      }
-      allCells.splice(allCells.indexOf(w), 1);
-      if (allCells.indexOf(sw) !== -1) {
-        allCells.splice(allCells.indexOf(sw), 1);
-      }
+    var oneBomb = bId[l];
+    var oneBombNeighbors = cellArray[oneBomb].neighborhood();
+    for (r = 0; r < oneBombNeighbors.length; r++) {
+      bombNeighbors.push(oneBombNeighbors[r]);
     }
   }
-  return allCells;
+  return bombNeighbors;
 }
 
 //adds 1 to adjacency value for each bomb a cell is touching
@@ -130,7 +140,6 @@ var surroundingCells = function() {
 
 //User Interface Logic
 $(document).ready(function() {
-
   $("#beginner").click(function(){
     createGame(beginner);
     $("#screen-overlay").hide();
@@ -406,7 +415,7 @@ $(document).ready(function() {
 
           //On left click
           case 1:
-          idValue = $(this).attr("id");
+          idValue = parseInt($(this).attr("id"));
           //If you left-click on a bomb, they all show up and game over
           if ($(this).hasClass("flag")){
             break;
@@ -420,7 +429,9 @@ $(document).ready(function() {
             //If you click on an empty space, it gains class "clicked-on"
           } else {
             //Down
+            console.log(cellArray[idValue].adjValue);
             if (cellArray[idValue].adjValue > 0) {
+              console.log(cellArray[idValue].adjValue);
               $(this).addClass("clicked-on");
               //shows the adjacency value when a cell is clicked on
               $(this).text(cellArray[idValue].adjValue);
